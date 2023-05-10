@@ -73,10 +73,11 @@ To make this change permanent, add the above command to your shell's configurati
 
 ## Usage
 
-With Moment Gauge installed, you can now use the library in your Python projects by importing it as follows:
+With Moment Gauge installed, you can now run the demo project computing a normal shock wave at Mach 1.2 using second-order Lax-Wendroff scheme method as follows:
 
 ```python
-import MomentGauge
+cd demos
+python NormalShock_LaxWendroff_Ma1.2.py
 ```
 
 For more information on using Moment Gauge, refer to the project documentation and examples provided in the repository.
