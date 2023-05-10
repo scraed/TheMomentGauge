@@ -1,7 +1,9 @@
+name: moment_gauge
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - scikit-learn
+  - matplotlib
   - pip:
       - sympy==1.11.1
-      - jax==0.4.1
