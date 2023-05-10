@@ -1,0 +1,15 @@
+:py:mod:`MomentGauge.Estimator`
+===============================
+
+.. py:module:: MomentGauge.Estimator
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   Estimator/index.rst
+
+

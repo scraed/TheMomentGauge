@@ -1,0 +1,60 @@
+:py:mod:`MomentGauge.Utility`
+=============================
+
+.. py:module:: MomentGauge.Utility
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Utility.generalized_eigh_cholesky
+   MomentGauge.Utility.generalized_eigh
+
+
+
+.. py:function:: generalized_eigh_cholesky(A, B)
+
+   Compute the generalilzed eignvalue problem :math:`A \mathbf{x} = \lambda B \mathbf{x}` in which A and B are Hermite matrix
+
+
+   :param A: a Hermite matrix of the shape (M, M)
+   :type A: array of shape (M,M)
+   :param B: a Hermite matrix of the shape (M, M)
+   :type B: array of shape (M,M)
+
+   :returns:
+
+             A tuple containing
+
+                 **w**: *array of shape (M)* - The eigenvalues in ascending order, each repeated according to its multiplicity.
+
+                 **V**: *array of shape (M,M)* - The matrix whose ith column V[:, i] is the normalized eigenvector corresponding to the ith eigenvalue.
+   :rtype: Tuple
+
+
+.. py:function:: generalized_eigh(A, B)
+
+   Compute the generalilzed eignvalue problem :math:`A \mathbf{x} = \lambda B \mathbf{x}` in which A and B are Hermite matrix
+
+
+   :param A: a Hermite matrix of the shape (M, M)
+   :type A: array of shape (M,M)
+   :param B: a Hermite matrix of the shape (M, M)
+   :type B: array of shape (M,M)
+
+   :returns:
+
+             A tuple containing
+
+                 **w**: *array of shape (M)* - The eigenvalues in ascending order, each repeated according to its multiplicity.
+
+                 **V**: *array of shape (M,M)* - The matrix whose ith column V[:, i] is the normalized eigenvector corresponding to the ith eigenvalue.
+   :rtype: Tuple
+
+

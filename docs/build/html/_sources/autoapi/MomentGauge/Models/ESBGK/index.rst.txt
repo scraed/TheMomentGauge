@@ -1,0 +1,1183 @@
+:py:mod:`MomentGauge.Models.ESBGK`
+==================================
+
+.. py:module:: MomentGauge.Models.ESBGK
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Models.ESBGK.ESBGK_Legendre_1D
+   MomentGauge.Models.ESBGK.ESBGK_Canonical_Legendre_1D
+   MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D
+   MomentGauge.Models.ESBGK.ESBGK_Canonical_Gauged_Legendre_1D
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Models.ESBGK.constant
+
+
+.. py:class:: ESBGK_Legendre_1D(constant)
+
+   Bases: :py:obj:`MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel`
+
+   
+   The 1D Maxwell distribution.
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \begin{split}
+       f_0(\mathbf{u}) &= \exp\left( \beta_0 \phi_0(\mathbf{u}) + \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u} )+ \beta_3 \phi_3(\mathbf{u} ) \right)\\
+               &= \frac{\rho}{m} \exp\left( \frac{m  v_x}{k_B T}\phi_1(\mathbf{u}) -\frac{m}{2 k_B T} \phi_2(\mathbf{u}) -  \left(\frac{m v_x^2}{2k_B T}+ \log \left(\frac{2\pi  k_B T}{m}\right)^{\frac{3}{2}}\right) \right),
+       \end{split}
+       \end{equation}
+
+   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, and
+
+       :math:`\phi_0` (**u** ) = 1.
+
+       :math:`\phi_1` (**u** ) = :math:`u_x`
+
+       :math:`\phi_2` (**u** ) = :math:`u_x^2`
+
+       :math:`\phi_3` (**u** ) = :math:`u_y^2 + u_z^2`.
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+
+                        **'n_x'** : int - the order of Gauss Legendre quadrature in x dimension. Required by :class:`MomentGauge.Sampler.QuadratureSampler.Gauss_Legendre_Sampler_Polar3D`
+
+                        **'n_r'** : int - the order of Gauss Legendre quadrature in r dimension.
+
+                        **'B_x'** : int - how many blocks are splitted in the x dimension for Gauss Legendre quadrature.
+
+                        **'B_r'** : int - how many blocks are splitted in the r dimension for Gauss Legendre quadrature.
+
+                        **'alpha'**: float - the initial step size used in backtracking line search, default = 1. Required by :class:`MomentGauge.Optim.NewtonOptimizer.Newton_Optimizer`
+
+                        **'beta'**: float - the decreasing factor of the step size used in backtracking line search, default = 0.5
+
+                        **'c'**: float - the parameter used in the Armijo's condiiton, must lies in (0,1), default = 5e-4
+
+                        **'atol'**: float - the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+
+                        **'rtol'**: float - the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+
+                        **'max_iter'**: int - the maximal iteration allowed for the Netwon's method, default = 100
+
+                        **'max_back_tracking_iter'**: int - the maximal iteration allowed for the backtracking line search, default = 25
+
+                        **'tol'**: float - the tolerance for residual, below which the optimization stops.
+
+                        **'min_step_size'**: float - the minimum step size given by back tracking, below which the optimization stops, default = 1e-6.
+
+                        **'reg_hessian'**: bool - Regularize the Hessian if the Cholesky decomposition failed. Default = True
+
+                        **'debug'**: bool - print debug information if True.
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: suff_statistics(u)
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}),  \phi_1(\mathbf{u}),  \phi_2(\mathbf{u}),  \phi_3(\mathbf{u}) \}`
+      :rtype: float array of shape (4)
+
+
+   .. py:method:: natural_paras_to_moments(betas, domain)
+
+      Compute the moments of sufficient statistics given natural parameters`
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, domain)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      :param betas_ini: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas_ini: float array of shape (4)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (M+1)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, domain, statistics, stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, domain)
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+   .. py:method:: rhoVTsigma_to_natural_paras(rhoVTsigma, domain, Pr=2 / 3)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the density :math:`\rho`, flow velocity :math:`v_x` and temperature :math:`T`
+
+      :param rhoVTsigma: A float array ( :math:`\rho`, :math:`v_x`, :math:`T`, :math:`\sigma_xx` )
+      :type rhoVTsigma: float array of shape (4)
+
+      :returns: The natural parameters :math:`\boldsymbol{\beta}`
+      :rtype: float array of shape (3)
+
+
+
+.. py:class:: ESBGK_Canonical_Legendre_1D(constant)
+
+   Bases: :py:obj:`ESBGK_Legendre_1D`, :py:obj:`MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel`
+
+   
+   The 1D Maxwell distribution.
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \begin{split}
+       f_0(\mathbf{u}) &= \exp\left( \beta_0 \phi_0(\mathbf{u}) + \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u} )+ \beta_3 \phi_3(\mathbf{u} ) \right)\\
+               &= \frac{\rho}{m} \exp\left( \frac{m  v_x}{k_B T}\phi_1(\mathbf{u}) -\frac{m}{2 k_B T} \phi_2(\mathbf{u}) -  \left(\frac{m v_x^2}{2k_B T}+ \log \left(\frac{2\pi  k_B T}{m}\right)^{\frac{3}{2}}\right) \right),
+       \end{split}
+       \end{equation}
+
+   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, and
+
+       :math:`\phi_0` (**u** ) = 1.
+
+       :math:`\phi_1` (**u** ) = :math:`u_x`
+
+       :math:`\phi_2` (**u** ) = :math:`u_x^2`
+
+       :math:`\phi_3` (**u** ) = :math:`u_y^2 + u_z^2`.
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+
+                        **'n_x'** : int - the order of Gauss Legendre quadrature in x dimension. Required by :class:`MomentGauge.Sampler.QuadratureSampler.Gauss_Legendre_Sampler_Polar3D`
+
+                        **'n_r'** : int - the order of Gauss Legendre quadrature in r dimension.
+
+                        **'B_x'** : int - how many blocks are splitted in the x dimension for Gauss Legendre quadrature.
+
+                        **'B_r'** : int - how many blocks are splitted in the r dimension for Gauss Legendre quadrature.
+
+                        **'alpha'**: float - the initial step size used in backtracking line search, default = 1. Required by :class:`MomentGauge.Optim.NewtonOptimizer.Newton_Optimizer`
+
+                        **'beta'**: float - the decreasing factor of the step size used in backtracking line search, default = 0.5
+
+                        **'c'**: float - the parameter used in the Armijo's condiiton, must lies in (0,1), default = 5e-4
+
+                        **'atol'**: float - the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+
+                        **'rtol'**: float - the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+
+                        **'max_iter'**: int - the maximal iteration allowed for the Netwon's method, default = 100
+
+                        **'max_back_tracking_iter'**: int - the maximal iteration allowed for the backtracking line search, default = 25
+
+                        **'tol'**: float - the tolerance for residual, below which the optimization stops.
+
+                        **'min_step_size'**: float - the minimum step size given by back tracking, below which the optimization stops, default = 1e-6.
+
+                        **'reg_hessian'**: bool - Regularize the Hessian if the Cholesky decomposition failed. Default = True
+
+                        **'debug'**: bool - print debug information if True.
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: rhoVTsigma_to_natural_paras(rhoVTsigma, domain, Pr=2 / 3)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the density :math:`\rho`, flow velocity :math:`v_x` and temperature :math:`T`
+
+      :param rhoVTsigma: A float array ( :math:`\rho`, :math:`v_x`, :math:`T`, :math:`\sigma_xx` )
+      :type rhoVTsigma: float array of shape (4)
+
+      :returns: The natural parameters :math:`\boldsymbol{\beta}`
+      :rtype: float array of shape (3)
+
+
+   .. py:method:: suff_statistics(u)
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}),  \phi_1(\mathbf{u}),  \phi_2(\mathbf{u}),  \phi_3(\mathbf{u}) \}`
+      :rtype: float array of shape (4)
+
+
+   .. py:method:: natural_paras_to_moments(betas, domain)
+
+      Compute the moments of sufficient statistics given natural parameters`
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, domain)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      :param betas_ini: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas_ini: float array of shape (4)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (M+1)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, domain, statistics, stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, domain)
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+
+.. py:class:: ESBGK_Gauged_Legendre_1D(constant)
+
+   Bases: :py:obj:`MomentGauge.Models.ExpFamilyBase.GaugedExpFamilyModel`, :py:obj:`MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel`
+
+   
+   The 1D Maxwell distribution with Gauge transformation.
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \begin{split}
+       f_0(\mathbf{u}) &= \exp\left( \beta_0 \phi_0(\mathbf{u},s_r, s_x, w_x) + \beta_1 \phi_1(\mathbf{u}, s_r, s_x, w_x) + \beta_2 \phi_2(\mathbf{u} , s_r, s_x,, w_x) + \beta_3 \phi_3(\mathbf{u} , s_r, s_x,, w_x) \right)\\
+       \end{split}
+       \end{equation}
+
+   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, and
+
+       Specifically,
+
+       :math:`\phi_0` (**u**, :math:`s_r, s_x, w_x` ) = 1.
+
+       :math:`\phi_1` (**u**, :math:`s_r, s_x, w_x` ) = :math:`\bar{u}_x`
+
+       :math:`\phi_2` (**u**, :math:`s_r, s_x, w_x` ) = :math:`\bar{u}_x^2`
+
+       :math:`\phi_3` (**u**, :math:`s_r, s_x, w_x` ) = :math:`\bar{u}_y^2 + \bar{u}_z^2`.
+
+       in which :math:`\bar{u}_x = \frac{u_x - w_x}{s}`, :math:`\bar{u}_y = \frac{u_y}{s}`, :math:`\bar{u}_z = \frac{u_z}{s}`
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+
+                        **'n_x'** : int - the order of Gauss Legendre quadrature in x dimension. Required by :class:`MomentGauge.Sampler.QuadratureSampler.Gauss_Legendre_Sampler_Polar3D`
+
+                        **'n_r'** : int - the order of Gauss Legendre quadrature in r dimension.
+
+                        **'B_x'** : int - how many blocks are splitted in the x dimension for Gauss Legendre quadrature.
+
+                        **'B_r'** : int - how many blocks are splitted in the r dimension for Gauss Legendre quadrature.
+
+                        **'alpha'**: float - the initial step size used in backtracking line search, default = 1. Required by :class:`MomentGauge.Optim.NewtonOptimizer.Newton_Optimizer`
+
+                        **'beta'**: float - the decreasing factor of the step size used in backtracking line search, default = 0.5
+
+                        **'c'**: float - the parameter used in the Armijo's condiiton, must lies in (0,1), default = 5e-4
+
+                        **'atol'**: float - the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+
+                        **'rtol'**: float - the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+
+                        **'max_iter'**: int - the maximal iteration allowed for the Netwon's method, default = 100
+
+                        **'max_back_tracking_iter'**: int - the maximal iteration allowed for the backtracking line search, default = 25
+
+                        **'tol'**: float - the tolerance for residual, below which the optimization stops.
+
+                        **'min_step_size'**: float - the minimum step size given by back tracking, below which the optimization stops, default = 1e-6.
+
+                        **'reg_hessian'**: bool - Regularize the Hessian if the Cholesky decomposition failed. Default = True
+
+                        **'debug'**: bool - print debug information if True.
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: suff_statistics(u, gauge_paras)
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}, s_r, s_x, w_x),  \phi_1(\mathbf{u}, s_r, s_x, w_x),  \phi_2(\mathbf{u}, s_r, s_x, w_x), \phi_3(\mathbf{u}, s_r, s_x, w_x) \}`
+      :rtype: float array of shape (4)
+
+
+   .. py:method:: natural_paras_to_moments(betas, gauge_paras, domain)
+
+      Compute the moments of sufficient statistics given natural parameters`
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`,:math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (4)
+
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, gauge_paras, domain)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      :param betas_ini: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas_ini: float array of shape (4)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (4)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, gauge_paras, domain, statistics, stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: moments_gauge_transformation(moments, gauge_para2, gauge_para1, domain)
+
+      Gauge transformation for moments of sufficient statistics. The transformation is defined as
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              M_i( s_r', s_x', w_x' )= T_{ij}(s_r', s_x', w_x', s_r, s_x, w_x) M_j(s_r, s_x, w_x); \quad i,j = 0, \cdots, 3
+          \end{equation}
+
+      which is induced from the gauge transformation :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between sufficient statistics :math:`\phi_i(\mathbf{u},(s, w_x))` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x',w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, 3
+          \end{equation}
+
+
+      with :math:`\phi_i(\mathbf{u},(s_r, s_x, w_x))` is sufficient statistics parameterized by gauge parameters :math:`(s_r, s_x, w_x)`.
+
+      :param moments: the moments :math:`M_i(s_r, s_x, w_x)` of sufficient statistics
+      :type moments: float array of shape (4)
+      :param gauge_para2: The array (:math:`s_r', s_x'`, :math:`w_x'`).
+      :type gauge_para2: float array of shape (3)
+      :param gauge_para1: The array (:math:`s_r, s_x`,  :math:`w_x`).
+      :type gauge_para1: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: the moments :math:`M_i(s', w_x')` of sufficient statistics
+      :rtype: float array of shape (3)
+
+
+   .. py:method:: natural_paras_gauge_transformation(betas, gauge_para2, gauge_para1, domain)
+
+      Gauge transformation for natural parameters. The transformation is defined as
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \beta_i( s_r', s_x', w_x' )= T_{ij}^T(s_r, s_x, w_x, s_r', s_x', w_x') \beta_j(s_r, s_x, w_x); \quad i,j = 0, \cdots, 2
+          \end{equation}
+
+      which is induced from the gauge transformation :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between sufficient statistics :math:`\phi_i(\mathbf{u},\mathbf{g})` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, 2
+          \end{equation}
+
+      with :math:`\phi_i(\mathbf{u},(s_r, s_x, w_x))` is sufficient statistics parameterized by gauge parameters :math:`(s_r, s_x, w_x)`.
+
+      :param betas: the moments :math:`\beta_i(s_r, s_x, w_x)` of sufficient statistics
+      :type betas: float array of shape (4)
+      :param gauge_para2: The array (:math:`s_r', s_x'`, :math:`w_x'`).
+      :type gauge_para2: float array of shape (3)
+      :param gauge_para1: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_para1: float array of shape (3)
+
+      :returns: the moments :math:`\beta_i(s_r', s_x', w_x')` of sufficient statistics
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, gauge_paras, domain)
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+   .. py:method:: rhoVTsigma_to_natural_paras(rhoVTsigma, gauge_paras, domain, Pr=2 / 3)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the density :math:`\rho`, flow velocity :math:`v_x` and temperature :math:`T`
+
+      :param rhoVTsigma: A float array ( :math:`\rho`, :math:`v_x`, :math:`T`, :math:`\sigma_xx` )
+      :type rhoVTsigma: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+
+      :returns: The natural parameters :math:`\boldsymbol{\beta}`
+      :rtype: float array of shape (3)
+
+
+   .. py:method:: standard_gauge_para_from_moments(moments, gauge_paras)
+
+      the standard gauge parameters :math:`\mathbf{g}` prefered among all possible gauges.
+
+      :param moments: the moments :math:`M_i(s, w_x)` of sufficient statistics
+      :type moments: float array of shape (3)
+      :param gauge_paras: The array (:math:`s`, :math:`w_x`).
+      :type gauge_paras: float array of shape (2)
+
+      :returns: The gauge parameters (:math:`s`, :math:`w_x`) in the Hermite gauge.
+      :rtype: float array of shape (2)
+
+
+
+.. py:class:: ESBGK_Canonical_Gauged_Legendre_1D(constant)
+
+   Bases: :py:obj:`ESBGK_Gauged_Legendre_1D`, :py:obj:`MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel`
+
+   
+   The 1D Maxwell distribution with Gauge transformation.
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \begin{split}
+       f_0(\mathbf{u}) &= \exp\left( \beta_0 \phi_0(\mathbf{u},s_r, s_x, w_x) + \beta_1 \phi_1(\mathbf{u}, s_r, s_x, w_x) + \beta_2 \phi_2(\mathbf{u} , s_r, s_x,, w_x) + \beta_3 \phi_3(\mathbf{u} , s_r, s_x,, w_x) \right)\\
+       \end{split}
+       \end{equation}
+
+   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, and
+
+       Specifically,
+
+       :math:`\phi_0` (**u**, :math:`s_r, s_x, w_x` ) = 1.
+
+       :math:`\phi_1` (**u**, :math:`s_r, s_x, w_x` ) = :math:`\bar{u}_x`
+
+       :math:`\phi_2` (**u**, :math:`s_r, s_x, w_x` ) = :math:`\bar{u}_x^2`
+
+       :math:`\phi_3` (**u**, :math:`s_r, s_x, w_x` ) = :math:`\bar{u}_y^2 + \bar{u}_z^2`.
+
+       in which :math:`\bar{u}_x = \frac{u_x - w_x}{s}`, :math:`\bar{u}_y = \frac{u_y}{s}`, :math:`\bar{u}_z = \frac{u_z}{s}`
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+
+                        **'n_x'** : int - the order of Gauss Legendre quadrature in x dimension. Required by :class:`MomentGauge.Sampler.QuadratureSampler.Gauss_Legendre_Sampler_Polar3D`
+
+                        **'n_r'** : int - the order of Gauss Legendre quadrature in r dimension.
+
+                        **'B_x'** : int - how many blocks are splitted in the x dimension for Gauss Legendre quadrature.
+
+                        **'B_r'** : int - how many blocks are splitted in the r dimension for Gauss Legendre quadrature.
+
+                        **'alpha'**: float - the initial step size used in backtracking line search, default = 1. Required by :class:`MomentGauge.Optim.NewtonOptimizer.Newton_Optimizer`
+
+                        **'beta'**: float - the decreasing factor of the step size used in backtracking line search, default = 0.5
+
+                        **'c'**: float - the parameter used in the Armijo's condiiton, must lies in (0,1), default = 5e-4
+
+                        **'atol'**: float - the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+
+                        **'rtol'**: float - the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+
+                        **'max_iter'**: int - the maximal iteration allowed for the Netwon's method, default = 100
+
+                        **'max_back_tracking_iter'**: int - the maximal iteration allowed for the backtracking line search, default = 25
+
+                        **'tol'**: float - the tolerance for residual, below which the optimization stops.
+
+                        **'min_step_size'**: float - the minimum step size given by back tracking, below which the optimization stops, default = 1e-6.
+
+                        **'reg_hessian'**: bool - Regularize the Hessian if the Cholesky decomposition failed. Default = True
+
+                        **'debug'**: bool - print debug information if True.
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: rhoVTsigma_to_natural_paras(rhoVTsigma, gauge_paras, domain, Pr=2 / 3)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the density :math:`\rho`, flow velocity :math:`v_x` and temperature :math:`T`
+
+      :param rhoVTsigma: A float array ( :math:`\rho`, :math:`v_x`, :math:`T`, :math:`\sigma_xx` )
+      :type rhoVTsigma: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+
+      :returns: The natural parameters :math:`\boldsymbol{\beta}`
+      :rtype: float array of shape (3)
+
+
+   .. py:method:: suff_statistics(u, gauge_paras)
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}, s_r, s_x, w_x),  \phi_1(\mathbf{u}, s_r, s_x, w_x),  \phi_2(\mathbf{u}, s_r, s_x, w_x), \phi_3(\mathbf{u}, s_r, s_x, w_x) \}`
+      :rtype: float array of shape (4)
+
+
+   .. py:method:: natural_paras_to_moments(betas, gauge_paras, domain)
+
+      Compute the moments of sufficient statistics given natural parameters`
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`,:math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (4)
+
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, gauge_paras, domain)
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      :param betas_ini: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas_ini: float array of shape (4)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (4)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, gauge_paras, domain, statistics, stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: moments_gauge_transformation(moments, gauge_para2, gauge_para1, domain)
+
+      Gauge transformation for moments of sufficient statistics. The transformation is defined as
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              M_i( s_r', s_x', w_x' )= T_{ij}(s_r', s_x', w_x', s_r, s_x, w_x) M_j(s_r, s_x, w_x); \quad i,j = 0, \cdots, 3
+          \end{equation}
+
+      which is induced from the gauge transformation :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between sufficient statistics :math:`\phi_i(\mathbf{u},(s, w_x))` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x',w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, 3
+          \end{equation}
+
+
+      with :math:`\phi_i(\mathbf{u},(s_r, s_x, w_x))` is sufficient statistics parameterized by gauge parameters :math:`(s_r, s_x, w_x)`.
+
+      :param moments: the moments :math:`M_i(s_r, s_x, w_x)` of sufficient statistics
+      :type moments: float array of shape (4)
+      :param gauge_para2: The array (:math:`s_r', s_x'`, :math:`w_x'`).
+      :type gauge_para2: float array of shape (3)
+      :param gauge_para1: The array (:math:`s_r, s_x`,  :math:`w_x`).
+      :type gauge_para1: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: the moments :math:`M_i(s', w_x')` of sufficient statistics
+      :rtype: float array of shape (3)
+
+
+   .. py:method:: natural_paras_gauge_transformation(betas, gauge_para2, gauge_para1, domain)
+
+      Gauge transformation for natural parameters. The transformation is defined as
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \beta_i( s_r', s_x', w_x' )= T_{ij}^T(s_r, s_x, w_x, s_r', s_x', w_x') \beta_j(s_r, s_x, w_x); \quad i,j = 0, \cdots, 2
+          \end{equation}
+
+      which is induced from the gauge transformation :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between sufficient statistics :math:`\phi_i(\mathbf{u},\mathbf{g})` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, 2
+          \end{equation}
+
+      with :math:`\phi_i(\mathbf{u},(s_r, s_x, w_x))` is sufficient statistics parameterized by gauge parameters :math:`(s_r, s_x, w_x)`.
+
+      :param betas: the moments :math:`\beta_i(s_r, s_x, w_x)` of sufficient statistics
+      :type betas: float array of shape (4)
+      :param gauge_para2: The array (:math:`s_r', s_x'`, :math:`w_x'`).
+      :type gauge_para2: float array of shape (3)
+      :param gauge_para1: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_para1: float array of shape (3)
+
+      :returns: the moments :math:`\beta_i(s_r', s_x', w_x')` of sufficient statistics
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, gauge_paras, domain)
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (4)
+      :param gauge_paras: The array (:math:`s_r, s_x`, :math:`w_x`).
+      :type gauge_paras: float array of shape (3)
+      :param domain:
+                     an array (a_x, b_x, b_r), in which
+
+                         **a_x** : *float* - lower integration limit in x dimension for the Legendre quadrature
+
+                         **b_x** : *float* - upper integration limit in x dimension for the Legendre quadrature
+
+                         **b_r** : *float* - upper integration limit in r dimension for the Legendre quadrature
+      :type domain: float array of shape (3)
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+   .. py:method:: standard_gauge_para_from_moments(moments, gauge_paras)
+
+      the standard gauge parameters :math:`\mathbf{g}` prefered among all possible gauges.
+
+      :param moments: the moments :math:`M_i(s, w_x)` of sufficient statistics
+      :type moments: float array of shape (3)
+      :param gauge_paras: The array (:math:`s`, :math:`w_x`).
+      :type gauge_paras: float array of shape (2)
+
+      :returns: The gauge parameters (:math:`s`, :math:`w_x`) in the Hermite gauge.
+      :rtype: float array of shape (2)
+
+
+
+.. py:data:: constant
+   
+
+   
+

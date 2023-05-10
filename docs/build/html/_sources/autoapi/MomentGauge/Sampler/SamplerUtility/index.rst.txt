@@ -1,0 +1,130 @@
+:py:mod:`MomentGauge.Sampler.SamplerUtility`
+============================================
+
+.. py:module:: MomentGauge.Sampler.SamplerUtility
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Sampler.SamplerUtility.Gauss_Legendre_Quadrature
+   MomentGauge.Sampler.SamplerUtility.Gauss_Legendre_Quadrature_2D
+   MomentGauge.Sampler.SamplerUtility.Gauss_Legendre_Quadrature_2D_Block
+
+
+
+.. py:function:: Gauss_Legendre_Quadrature(a, b, n)
+
+   Generate the Legender Quadrature points and corresponding weights for 1D integral
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \int_{a}^b \phi(x) d x \approx \sum_{i=i}^n w_i \phi(x_i),
+       \end{equation}
+
+   :param a: lower integration limit
+   :type a: float
+   :param b: upper integration limit, float
+   :type b: float
+   :param n: the order of Gauss Legendre quadrature
+   :type n: int
+
+   :returns:
+
+             A tuple containing
+
+                 **x**: *array of shape (n)* - the quadrature points :math:`x_i`
+
+                 **w**: *array of shape (n)* - the quadrature weights :math:`w_i`
+   :rtype: Tuple
+
+
+.. py:function:: Gauss_Legendre_Quadrature_2D(a_x, b_x, n_x, a_y, b_y, n_y)
+
+   Generate the Legender Quadrature points and corresponding weights for 2D integral
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \int_{a_y}^{b_y} \int_{a_x}^{b_x} \phi(x,y) d x dy \approx \sum_{i=1,j=1}^{n_x,n_y} w_{ij} \phi( \mathbf{x}_{ij}),
+       \end{equation}
+
+   :param a_x: lower integration limit in x dimension
+   :type a_x: float
+   :param b_x: upper integration limit in x dimension
+   :type b_x: float
+   :param n_x: the order of Gauss Legendre quadrature in x dimension
+   :type n_x: int
+   :param a_y: lower integration limit in y dimension
+   :type a_y: float
+   :param b_y: upper integration limit in y dimension
+   :type b_y: float
+   :param n_y: the order of Gauss Legendre quadrature in y dimension
+   :type n_y: int
+
+   :returns:
+
+             A tuple containing
+
+                 **x**: *array of shape (n_x, n_y, 2)* - the quadrature points, x[i,j,:] is the 2D i-jth quadrature points :math:`\mathbf{x}_{ij}`
+
+                 **w**: *array of shape (n_x, n_y)* - the quadrature weights w[i,j] is the quadrature weight :math:`w_{ij}`
+   :rtype: Tuple
+
+
+.. py:function:: Gauss_Legendre_Quadrature_2D_Block(a_x, b_x, n_x, B_x, a_y, b_y, n_y, B_y)
+
+   Block-wise the Legender Quadrature points and corresponding weights for 2D integral.
+
+   The integration domain is a square :math:`(a_x, b_x)\times(a_y, b_y)` that is splitted into (b_x*b_y) blocks, in which each block are integrated with 2D Gauss Legendre quadratures as in :func:`Sampler.SamplerUtility.Gauss_Legendre_Quadrature_2D`.
+
+   Specifically, the interval :math:`(a_x, b_x)` is divided into :math:`B_x` piecies: :math:`\{(a_{x,l_x},a_{x,l_x+1})\ |\ l_x = 1,\cdots,B_x; a_{x,1} = a_x, a_{x,B_x+1} = b_x\}`.
+
+   The interval :math:`(b_x, b_y)` is divided into :math:`B_y` piecies: :math:`\{(a_{y,l_y},a_{y,l_y+1})\ |\ l_y = 1,\cdots,B_y; a_{y,1} = a_y, a_{y,B_y+1} = b_y\}`.
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \begin{split}
+       \int_{a_y}^{b_y} \int_{a_x}^{b_x} \phi(x,y) d x dy &=  \sum_{l_x=1,l_y=1}^{B_x,B_y}  \int_{a_{y,l_y}}^{a_{y,l_y+1}} \int_{a_{x,l_x}}^{a_{x,l_x+1}} \phi(x,y) d x dy \\
+       & \approx \sum_{l_x=1,l_y=1,i=1,j=1}^{B_x,B_y,n_x,n_y} w_{l_xl_yij} \phi( \mathbf{x}_{l_xl_yij}),
+       \end{split}
+       \end{equation}
+
+   :param a_x: lower integration limit in x dimension
+   :type a_x: float
+   :param b_x: upper integration limit in x dimension
+   :type b_x: float
+   :param n_x: the order of Gauss Legendre quadrature in x dimension
+   :type n_x: int
+   :param B_x: how many blocks are splitted in the x dimension
+   :type B_x: int
+   :param a_y: lower integration limit in y dimension
+   :type a_y: float
+   :param b_y: upper integration limit in y dimension
+   :type b_y: float
+   :param n_y: the order of Gauss Legendre quadrature in y dimension
+   :type n_y: int
+   :param B_y: how many blocks are splitted in the y dimension
+   :type B_y: int
+
+   :returns:
+
+             A tuple containing
+
+                 **x**: *array of shape (B_x,B_y,n_x, n_y, 2)* - the quadrature points, x[l_x,l_y,i,j,:] is the i-jth 2D quadrature points :math:`\mathbf{x}_{l_xl_yij}` in the l_x-l_yth block
+
+                 **w**: *array of shape (B_x,B_y,n_x, n_y)* - the quadrature weights w[l_x,l_y,i,j] is the i-jth quadrature weight :math:`w_{l_xl_yij}` in the l_x-l_yth block
+   :rtype: Tuple
+
+

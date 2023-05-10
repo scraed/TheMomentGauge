@@ -1,0 +1,1710 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>MomentGauge.Statistic.PolyGaugedStatistics &#8212; MomentGauge 1.0 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">MomentGauge 1.0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../About.html">
+   About MomentGauge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../install.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../getStarted.html">
+   Get started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../importanceSampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../../index.html">
+   API Reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       MomentGauge
+      </span>
+     </code>
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../Estimator/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Estimator
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Estimator/Estimator/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Estimator.Estimator
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../Models/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Models
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Models/ESBGK/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.ESBGK
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Models/ExpFamilyBase/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.ExpFamilyBase
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Models/Maxwellian/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Maxwellian
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Models/Moment35/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Moment35
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Models/Moment35P2/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Moment35P2
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../Optim/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Optim
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Optim/BaseOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.BaseOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Optim/NewtonOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.NewtonOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Optim/SVDNewtonOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.SVDNewtonOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../Sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Sampler
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Sampler/Base/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.Base
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Sampler/CanonicalExpFamilySampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.CanonicalExpFamilySampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Sampler/ExponentialFamilySampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.ExponentialFamilySampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Sampler/QuadratureSampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.QuadratureSampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../Sampler/SamplerUtility/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.SamplerUtility
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="../index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Statistic
+        </span>
+       </code>
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+      <label for="toctree-checkbox-7">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.PolyGaugedStatistics
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../PolyStatistics/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.PolyStatistics
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../SymbolicPolynomials/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.SymbolicPolynomials
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../Test/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Test
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../Utility/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Utility
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../../_sources/autoapi/MomentGauge/Statistic/PolyGaugedStatistics/index.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics">
+       PolyGaugedStatistics
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats">
+       Maxwellian_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx">
+       PolyGaugedStatistics_sr_sx_wx
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats">
+       ESBGK_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats">
+       M35_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.conservative_decomposition">
+         conservative_decomposition
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats">
+       M35_P2_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>MomentGauge.Statistic.PolyGaugedStatistics</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics">
+       PolyGaugedStatistics
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats">
+       Maxwellian_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx">
+       PolyGaugedStatistics_sr_sx_wx
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats">
+       ESBGK_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats">
+       M35_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.conservative_decomposition">
+         conservative_decomposition
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats">
+       M35_P2_1D_gauged_stats
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.suff_stats">
+         suff_stats
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge">
+         gauge
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge_transformation_matrix">
+         gauge_transformation_matrix
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.standard_gauge_paras">
+         standard_gauge_paras
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-MomentGauge.Statistic.PolyGaugedStatistics">
+<span id="momentgauge-statistic-polygaugedstatistics"></span><h1><a class="reference internal" href="#module-MomentGauge.Statistic.PolyGaugedStatistics" title="MomentGauge.Statistic.PolyGaugedStatistics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics</span></code></a><a class="headerlink" href="#module-MomentGauge.Statistic.PolyGaugedStatistics" title="Permalink to this heading">#</a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics</span></code></a></p></td>
+<td><p>The base class for store pre-defined gauged polynomial statistics.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats" title="MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maxwellian_1D_gauged_stats</span></code></a></p></td>
+<td><p>The 1D version of polynomial statistics for 35 moments with gauge transformation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics_sr_sx_wx</span></code></a></p></td>
+<td><p>The base class for store pre-defined gauged polynomial statistics with gauge parameter <span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, and <span class="math notranslate nohighlight">\(w_x\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats" title="MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_1D_gauged_stats</span></code></a></p></td>
+<td><p>The 1D version of polynomial statistics for ESBGK moments with gauge transformation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats" title="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">M35_1D_gauged_stats</span></code></a></p></td>
+<td><p>The 1D version of polynomial statistics for 35 moments with gauge transformation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats" title="MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">M35_P2_1D_gauged_stats</span></code></a></p></td>
+<td><p>The 1D version of polynomial statistics for 35 moments with gauge transformation.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics.</span></span><span class="sig-name descname"><span class="pre">PolyGaugedStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_statistics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../PolyStatistics/index.html#MomentGauge.Statistic.PolyStatistics.PolyStatistics" title="MomentGauge.Statistic.PolyStatistics.PolyStatistics"><span class="pre">MomentGauge.Statistic.PolyStatistics.PolyStatistics</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../PolyStatistics/index.html#MomentGauge.Statistic.PolyStatistics.PolyStatistics" title="MomentGauge.Statistic.PolyStatistics.PolyStatistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MomentGauge.Statistic.PolyStatistics.PolyStatistics</span></code></a></p>
+<p>The base class for store pre-defined gauged polynomial statistics.</p>
+<p>The gauged statistics are transformation of ordinary polynomial statistics by a gauge transformation <span class="math notranslate nohighlight">\(A_{ij}(\mathbf{g})\)</span>.</p>
+<p>Specifically, given a set of polynomial statistics <span class="math notranslate nohighlight">\(\phi_i(\mathbf{u})\)</span>, their gauged version is a set of statistics <span class="math notranslate nohighlight">\(\phi_i(\mathbf{u}, \mathbf{g})\)</span> admits extra gauge parameters <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\phi_i(\mathbf{u}, \mathbf{g}) = A_{ij}(\mathbf{g})\phi_j(\mathbf{u})
+\end{equation}</div><p>Moreover we have gauge transformation between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\phi_i(\mathbf{u}, \mathbf{g}') = T_{ij}(\mathbf{g}',\mathbf{g})\phi_j(\mathbf{u}, \mathbf{g})
+\end{equation}</div><dl class="py attribute">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.suff_stats">
+<span class="sig-name descname"><span class="pre">suff_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.suff_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>a list of moment functions [<span class="math notranslate nohighlight">\(\phi_i\)</span>, i=0,cdots,N-1] in which each <span class="math notranslate nohighlight">\(\phi_i\)</span> is a polynomial function <span class="math notranslate nohighlight">\(\phi_i\)</span> ( <strong>u</strong>, <span class="math notranslate nohighlight">\(*\)</span> <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector (<span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_y\)</span>, <span class="math notranslate nohighlight">\(u_z\)</span>)</p>
+<p><span class="math notranslate nohighlight">\(*\)</span> <strong>gauge_paras</strong> : - Arbitrary many extra parameters. The <span class="math notranslate nohighlight">\(*\)</span> refers to the unpacking operator in python.</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the functions of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> into function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and gauge parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – <p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong>, <span class="math notranslate nohighlight">\(*\)</span> <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+<p><span class="math notranslate nohighlight">\(*\)</span> <strong>gauge_paras</strong> : - Arbitrary many extra parameters. The <span class="math notranslate nohighlight">\(*\)</span> refers to the unpacking operator in python.</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge_transformation_matrix">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gauge_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauge_para2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.gauge_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the gauge transformation matrix <span class="math notranslate nohighlight">\(T_{ij}(\mathbf{g}',\mathbf{g})\)</span> between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\phi_i(\mathbf{u}, \mathbf{g}') = T_{ij}(\mathbf{g}',\mathbf{g})\phi_j(\mathbf{u}, \mathbf{g})
+\end{equation}</div><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gauge_para2</strong> (<em>tuple</em>) – Tuple containing arbitrary many extra gauge parameters such as <span class="math notranslate nohighlight">\(\mathbf{g}'\)</span></p></li>
+<li><p><strong>gauge_para1</strong> (<em>tuple</em>) – Tuple containing arbitrary many extra gauge parameters such as <span class="math notranslate nohighlight">\(\mathbf{g}\)</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the matrix <span class="math notranslate nohighlight">\(T_{ij}(\mathbf{g}',\mathbf{g})\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (N,N)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.standard_gauge_paras">
+<span class="sig-name descname"><span class="pre">standard_gauge_paras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics.standard_gauge_paras" title="Permalink to this definition">#</a></dt>
+<dd><p>the standard gauge parameters <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> prefered among all possible gauges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>N</em><em>)</em>) – The array containing moments of sufficient statistics given the gauge parameters <span class="math notranslate nohighlight">\(\mathbf{g}\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – Tuple containing arbitrary many extra gauge parameters such as <span class="math notranslate nohighlight">\(\mathbf{g}\)</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the standard gauge parameters <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> prefered among all possible gauges.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics.</span></span><span class="sig-name descname"><span class="pre">Maxwellian_1D_gauged_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics</span></code></a></p>
+<p>The 1D version of polynomial statistics for 35 moments with gauge transformation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.suff_stats">
+<span class="sig-name descname"><span class="pre">suff_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.suff_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>a list of moment functions [<span class="math notranslate nohighlight">\(\phi_i,i=0,\cdots,2\)</span>] in which each <span class="math notranslate nohighlight">\(\phi_i\)</span> is a polynomial function <span class="math notranslate nohighlight">\(\phi_i\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector (<span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_y\)</span>, <span class="math notranslate nohighlight">\(u_z\)</span>)</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s\)</span>,:math:<cite>w_x</cite>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+<p>Specifically,</p>
+<p><span class="math notranslate nohighlight">\(\phi_0\)</span> (<strong>u</strong> ) = 1.</p>
+<p><span class="math notranslate nohighlight">\(\phi_1\)</span> (<strong>u</strong> ) = <span class="math notranslate nohighlight">\(\bar{u}_x\)</span></p>
+<p><span class="math notranslate nohighlight">\(\phi_2\)</span> (<strong>u</strong> ) = <span class="math notranslate nohighlight">\(\bar{u}_x^2 + \bar{u}_y^2 + \bar{u}_z^2\)</span>.</p>
+<p>in which <span class="math notranslate nohighlight">\(\bar{u}_x = \frac{u_x - w_x}{s}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_y = \frac{u_y}{s}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_z = \frac{u_z}{s}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of length (9)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge">
+<span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the functions of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> into function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and gauge parameters (<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – <p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge_transformation_matrix">
+<span class="sig-name descname"><span class="pre">gauge_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauge_para2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.gauge_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the gauge transformation matrix between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+    \phi_i(\mathbf{u}, (s', w_x') )= T_{ij}(s', w_x',s, w_x) \phi_j(\mathbf{u}, (s, w_x)); \quad i,j = 0, \cdots, 2
+\end{equation}</div><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gauge_para2</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s'\)</span>, <span class="math notranslate nohighlight">\(w_x'\)</span>) which is a float array of shape (2).</p></li>
+<li><p><strong>gauge_para1</strong> – A tuple containing the array (<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the matrix <span class="math notranslate nohighlight">\(T_{ij}(s', w_x',s, w_x)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (3,3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.standard_gauge_paras">
+<span class="sig-name descname"><span class="pre">standard_gauge_paras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats.standard_gauge_paras" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Hermite gauge parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>3</em><em>)</em>) – The array containing moments of sufficient statistics <span class="math notranslate nohighlight">\((M_0(s, w_x), M_1(s, w_x), M_2(s, w_x))\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the Hermite gauge parameters (<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (2)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics.</span></span><span class="sig-name descname"><span class="pre">PolyGaugedStatistics_sr_sx_wx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_statistics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../PolyStatistics/index.html#MomentGauge.Statistic.PolyStatistics.PolyStatistics" title="MomentGauge.Statistic.PolyStatistics.PolyStatistics"><span class="pre">MomentGauge.Statistic.PolyStatistics.PolyStatistics</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics</span></code></a></p>
+<p>The base class for store pre-defined gauged polynomial statistics with gauge parameter <span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, and <span class="math notranslate nohighlight">\(w_x\)</span></p>
+<p>The gauged statistics are transformation of ordinary polynomial statistics by a gauge transformation <span class="math notranslate nohighlight">\(A_{ij}(\mathbf{g})\)</span>.</p>
+<p>Specifically, given a set of polynomial statistics <span class="math notranslate nohighlight">\(\phi_i(\mathbf{u})\)</span>, their gauged version is a set of statistics <span class="math notranslate nohighlight">\(\phi_i(\mathbf{u}, \mathbf{g})\)</span> admits extra gauge parameters <span class="math notranslate nohighlight">\(\mathbf{g}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\phi_i(\mathbf{u}, \mathbf{g}) = A_{ij}(\mathbf{g})\phi_j(\mathbf{u}) = \phi_i(\bar{\mathbf{u}})
+\end{equation}</div><p>such that <span class="math notranslate nohighlight">\(\bar{\mathbf{u}}={ \bar{u}_x, \bar{u}_y, \bar{u}_z }\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_x = \frac{u_x - w_x}{s_x}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_y = \frac{u_y}{s_r}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_z = \frac{u_z}{s_r}\)</span>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.suff_stats">
+<span class="sig-name descname"><span class="pre">suff_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.suff_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>a list of moment functions [<span class="math notranslate nohighlight">\(\phi_i\)</span>, i=0,cdots,N-1] in which each <span class="math notranslate nohighlight">\(\phi_i\)</span> is a polynomial function <span class="math notranslate nohighlight">\(\phi_i\)</span> ( <strong>u</strong>, <span class="math notranslate nohighlight">\(*\)</span> <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector (<span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_y\)</span>, <span class="math notranslate nohighlight">\(u_z\)</span>)</p>
+<p><span class="math notranslate nohighlight">\(*\)</span> <strong>gauge_paras</strong> : - Arbitrary many extra parameters. The <span class="math notranslate nohighlight">\(*\)</span> refers to the unpacking operator in python.</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge">
+<span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the functions of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> into function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – <p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge_transformation_matrix">
+<span class="sig-name descname"><span class="pre">gauge_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauge_para2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.gauge_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the gauge transformation matrix between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+    \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+\end{equation}</div><p>in which M is the number of sufficient statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gauge_para2</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r'\)</span>, <span class="math notranslate nohighlight">\(s_x'\)</span>, <span class="math notranslate nohighlight">\(w_x'\)</span>) which is a float array of shape (3).</p></li>
+<li><p><strong>gauge_para1</strong> – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (3).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the matrix <span class="math notranslate nohighlight">\(T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (M,M)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.standard_gauge_paras">
+<span class="sig-name descname"><span class="pre">standard_gauge_paras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx.standard_gauge_paras" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Hermite gauge parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>9</em><em>)</em>) – The array containing moments of sufficient statistics <span class="math notranslate nohighlight">\((M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the Hermite gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics.</span></span><span class="sig-name descname"><span class="pre">ESBGK_1D_gauged_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics_sr_sx_wx</span></code></a></p>
+<p>The 1D version of polynomial statistics for ESBGK moments with gauge transformation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.suff_stats">
+<span class="sig-name descname"><span class="pre">suff_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.suff_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>a list of moment functions [<span class="math notranslate nohighlight">\(\phi_i,i=0,\cdots,3\)</span>] in which each <span class="math notranslate nohighlight">\(\phi_i\)</span> is a polynomial function <span class="math notranslate nohighlight">\(\phi_i\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector (<span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_y\)</span>, <span class="math notranslate nohighlight">\(u_z\)</span>)</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+<p>Specifically,</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\{\phi_i(\mathbf{u}, (s_r, s_x, w_x) ),i=0,\cdots,3\} = \left\{1,\bar{u}_x,\bar{u}_x^2,\bar{u}_r^2,\right\}
+\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\bar{u}_x = \frac{u_x - w_x}{s_x}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_r = \frac{u_r}{s_r}\)</span>, <span class="math notranslate nohighlight">\(u_r = \sqrt{u_y^2+u_z^2}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of length (4)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge">
+<span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the functions of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> into function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – <p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge_transformation_matrix">
+<span class="sig-name descname"><span class="pre">gauge_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauge_para2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.gauge_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the gauge transformation matrix between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+    \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+\end{equation}</div><p>in which M is the number of sufficient statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gauge_para2</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r'\)</span>, <span class="math notranslate nohighlight">\(s_x'\)</span>, <span class="math notranslate nohighlight">\(w_x'\)</span>) which is a float array of shape (3).</p></li>
+<li><p><strong>gauge_para1</strong> – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (3).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the matrix <span class="math notranslate nohighlight">\(T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (M,M)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.standard_gauge_paras">
+<span class="sig-name descname"><span class="pre">standard_gauge_paras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats.standard_gauge_paras" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Hermite gauge parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>9</em><em>)</em>) – The array containing moments of sufficient statistics <span class="math notranslate nohighlight">\((M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the Hermite gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics.</span></span><span class="sig-name descname"><span class="pre">M35_1D_gauged_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics_sr_sx_wx</span></code></a></p>
+<p>The 1D version of polynomial statistics for 35 moments with gauge transformation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.suff_stats">
+<span class="sig-name descname"><span class="pre">suff_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.suff_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>a list of moment functions [<span class="math notranslate nohighlight">\(\phi_i,i=0,\cdots,8\)</span>] in which each <span class="math notranslate nohighlight">\(\phi_i\)</span> is a polynomial function <span class="math notranslate nohighlight">\(\phi_i\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector (<span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_y\)</span>, <span class="math notranslate nohighlight">\(u_z\)</span>)</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+<p>Specifically,</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\{\phi_i(\mathbf{u}, (s_r, s_x, w_x) ),i=0,\cdots,8\} = \left\{1,\bar{u}_x,\frac{\bar{u}_x^2-1}{\sqrt{2}},\frac{\bar{u}_r^2}{2} -1,\frac{\bar{u}_x^3-3\bar{u}_x}{\sqrt{6}},\frac{\bar{u}_x^4-6\bar{u}_x^2+3}{2 \sqrt{6}},\frac{1}{8} \bar{u}_r^4-\bar{u}_r^2+1,\frac{1}{2} \bar{u}_x (\bar{u}_r^2-1),\frac{( \bar{u}_x^2 -1)( \bar{u}_r^2-2)}{2 \sqrt{2}}\right\}
+\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\bar{u}_x = \frac{u_x - w_x}{s_x}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_r = \frac{u_r}{s_r}\)</span>, <span class="math notranslate nohighlight">\(u_r = \sqrt{u_y^2+u_z^2}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of length (9)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.conservative_decomposition">
+<span class="sig-name descname"><span class="pre">conservative_decomposition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.conservative_decomposition" title="Permalink to this definition">#</a></dt>
+<dd><p>Decompose the moments as the summation of the conserved part and the non-conserved part</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>9</em><em>)</em>) – The array containing moments of sufficient statistics <span class="math notranslate nohighlight">\((M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the conservative part of the moments. The non conservative part is moments - conservative part.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (9)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge">
+<span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the functions of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> into function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – <p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge_transformation_matrix">
+<span class="sig-name descname"><span class="pre">gauge_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauge_para2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.gauge_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the gauge transformation matrix between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+    \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+\end{equation}</div><p>in which M is the number of sufficient statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gauge_para2</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r'\)</span>, <span class="math notranslate nohighlight">\(s_x'\)</span>, <span class="math notranslate nohighlight">\(w_x'\)</span>) which is a float array of shape (3).</p></li>
+<li><p><strong>gauge_para1</strong> – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (3).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the matrix <span class="math notranslate nohighlight">\(T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (M,M)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.standard_gauge_paras">
+<span class="sig-name descname"><span class="pre">standard_gauge_paras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats.standard_gauge_paras" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Hermite gauge parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>9</em><em>)</em>) – The array containing moments of sufficient statistics <span class="math notranslate nohighlight">\((M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the Hermite gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Statistic.PolyGaugedStatistics.</span></span><span class="sig-name descname"><span class="pre">M35_P2_1D_gauged_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx" title="MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyGaugedStatistics_sr_sx_wx</span></code></a></p>
+<p>The 1D version of polynomial statistics for 35 moments with gauge transformation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.suff_stats">
+<span class="sig-name descname"><span class="pre">suff_stats</span></span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.suff_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>a list of moment functions [<span class="math notranslate nohighlight">\(\phi_i,i=0,\cdots,8\)</span>] in which each <span class="math notranslate nohighlight">\(\phi_i\)</span> is a polynomial function <span class="math notranslate nohighlight">\(\phi_i\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector (<span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_y\)</span>, <span class="math notranslate nohighlight">\(u_z\)</span>)</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+<p>Specifically,</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\{\phi_i(\mathbf{u}, (s_r, s_x, w_x) ),i=0,\cdots,10\} = \left\{1,\bar{u}_x,\frac{\bar{u}_x^2-1}{\sqrt{2}},\frac{\bar{u}_r^2}{2} -1,\frac{\bar{u}_x^3-3\bar{u}_x}{\sqrt{6}},\frac{\bar{u}_x^4-6\bar{u}_x^2+3}{2 \sqrt{6}},\frac{1}{8} \bar{u}_r^4-\bar{u}_r^2+1,\frac{1}{2} \bar{u}_x (\bar{u}_r^2-1),\frac{( \bar{u}_x^2 -1)( \bar{u}_r^2-2)}{2 \sqrt{2}} , \frac{\bar{u}_x^5}{2 \sqrt{30}}-\sqrt{\frac{5}{6}} \bar{u}_x^3+\frac{1}{2} \sqrt{\frac{15}{2}} \bar{u}_x, \frac{\bar{u}_x^6}{12 \sqrt{5}}-\frac{\sqrt{5} \bar{u}_x^4}{4}+\frac{3 \sqrt{5} \bar{u}_x^2}{4}-\frac{\sqrt{5}}{4}   \right\}
+\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\bar{u}_x = \frac{u_x - w_x}{s_x}\)</span>, <span class="math notranslate nohighlight">\(\bar{u}_r = \frac{u_r}{s_r}\)</span>, <span class="math notranslate nohighlight">\(u_r = \sqrt{u_y^2+u_z^2}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of length (11)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge">
+<span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the functions of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> into function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – <p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>a polynomial function <span class="math notranslate nohighlight">\(\phi\)</span> ( <strong>u</strong>, <strong>gauge_paras</strong> ) whose</p>
+<blockquote>
+<div><p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><strong>u</strong> : float array of shape (3) - The 3D sample vector</p>
+<p><strong>gauge_paras</strong> : float array of shape (3) - The array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>).</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p>float – the moment value</p>
+</div></blockquote>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge_transformation_matrix">
+<span class="sig-name descname"><span class="pre">gauge_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauge_para2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.gauge_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the gauge transformation matrix between different gauge parameters</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+    \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+\end{equation}</div><p>in which M is the number of sufficient statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gauge_para2</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r'\)</span>, <span class="math notranslate nohighlight">\(s_x'\)</span>, <span class="math notranslate nohighlight">\(w_x'\)</span>) which is a float array of shape (3).</p></li>
+<li><p><strong>gauge_para1</strong> – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (3).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the matrix <span class="math notranslate nohighlight">\(T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (M,M)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.standard_gauge_paras">
+<span class="sig-name descname"><span class="pre">standard_gauge_paras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">moments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauge_para</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats.standard_gauge_paras" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Hermite gauge parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moments</strong> (<em>float array of shape</em><em> (</em><em>9</em><em>)</em>) – The array containing moments of sufficient statistics <span class="math notranslate nohighlight">\((M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))\)</span></p></li>
+<li><p><strong>gauge_para</strong> (<em>tuple</em>) – A tuple containing the array (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>) which is a float array of shape (2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the Hermite gauge parameters (<span class="math notranslate nohighlight">\(s_r\)</span>, <span class="math notranslate nohighlight">\(s_x\)</span>, <span class="math notranslate nohighlight">\(w_x\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float array of shape (3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Candi Zheng<br/>
+  
+      &copy; Copyright 2023, Candi Zheng.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

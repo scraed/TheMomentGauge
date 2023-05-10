@@ -1,0 +1,616 @@
+:py:mod:`MomentGauge.Models.ExpFamilyBase`
+==========================================
+
+.. py:module:: MomentGauge.Models.ExpFamilyBase
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel
+   MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel
+   MomentGauge.Models.ExpFamilyBase.GaugedExpFamilyModel
+
+
+
+
+.. py:class:: BaseExpFamilyModel(constant)
+
+   
+   The base class for exponential family model.
+
+   Specifically, the distribution has the form
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       f(\mathbf{u};\boldsymbol{\beta},\mathbf{g}) = \exp\left( \sum_{i=0}^M \beta_i \phi_i(\mathbf{u},\mathbf{g}) \right)
+       \end{equation}
+
+   in which :math:`\{\phi_i,i=0,\cdots,M\}` are sufficient statistics, :math:`\boldsymbol{\beta}` is the natural parameter of the distribution, :math:`\phi_0(\mathbf{u},\mathbf{g}) = 1`, and :math:`\mathbf{g}` is extra gauge parameters that may or may not be requested by the moments :math:`\phi_i`.
+
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: suff_statistics(u, gauge_paras=())
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}), \cdots, \phi_M(\mathbf{u}) \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, gauge_paras=(), base_args=())
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      Specific implementation (Children) of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas: float array of shape (M+1)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (M+1)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: natural_paras_to_moments(betas, gauge_paras=(), base_args=())
+
+      Compute the moments of sufficient statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, statistics, gauge_paras=(), base_args=(), stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required as **gauge_paras**. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, gauge_paras=(), base_args=())
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+
+.. py:class:: CanonicalExpFamilyModel(constant)
+
+   Bases: :py:obj:`BaseExpFamilyModel`
+
+   
+   The base class for exponential family model using canonical form samplers.
+
+   During sampling, the natural parameter are first converted to fit canonical forms.
+
+   Specifically, the distribution has the form
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \begin{split}
+       f(\mathbf{u};\boldsymbol{\beta},\mathbf{g}) &= \frac{\beta_0}{Z(\boldsymbol{\beta},\mathbf{g})} \exp\left( \sum_{i=1}^M \beta_i \phi_i(\mathbf{u},\mathbf{g})  \right)\\
+       Z(\boldsymbol{\beta},\mathbf{g}) &= \int \exp\left( \sum_{i=1}^M \beta_i \phi_i(\mathbf{u},\mathbf{g})  \right) d\mathbf{u}
+       \end{split}
+       \end{equation}
+
+   in which :math:`\{\phi_i,i=0,\cdots,M\}` are sufficient statistics, :math:`\boldsymbol{\beta}` is the natural parameter of the distribution, :math:`\phi_0(\mathbf{u},\mathbf{g}) = 1`, and :math:`\mathbf{g}` is extra gauge parameters that may or may not be requested by the moments :math:`\phi_i`.
+
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, gauge_paras=(), base_args=())
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      Specific implementation (Children) of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas: float array of shape (M+1)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (M+1)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: suff_statistics(u, gauge_paras=())
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}), \cdots, \phi_M(\mathbf{u}) \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_to_moments(betas, gauge_paras=(), base_args=())
+
+      Compute the moments of sufficient statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, statistics, gauge_paras=(), base_args=(), stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required as **gauge_paras**. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, gauge_paras=(), base_args=())
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+
+.. py:class:: GaugedExpFamilyModel(constant)
+
+   Bases: :py:obj:`BaseExpFamilyModel`
+
+   
+   The base class for exponential family model with Gauge transformations.
+
+   It add two methods :meth:`moments_gauge_transformation` and :meth:`natural_paras_gauge_transformation` to :class:`BaseExpFamilyModel`
+
+   :param constant:
+                    dictionary with the following keys
+
+                        **'m'** : float - the mass of particle considered
+
+                        **'kB'** : float - the Boltzmann constant
+   :type constant: dict
+
+   .. attribute:: m
+
+      the mass of particle considered
+
+      :type: float
+
+   .. attribute:: kB
+
+      the Boltzmann constant
+
+      :type: float
+
+   .. attribute:: constant
+
+      dictionary with the keys containing **'m'** and **'kB'**
+
+      :type: dict
+
+   .. py:method:: moments_gauge_transformation(moments, gauge_para2=(), gauge_para1=(), base_args=())
+
+      Gauge transformation for moments of sufficient statistics. The transformation is defined as
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              M_i(\mathbf{g}' )= T_{ij}(\mathbf{g}',\mathbf{g}) M_j(\mathbf{g}); \quad i,j = 0, \cdots, M
+          \end{equation}
+
+      which is induced from the gauge transformation :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between sufficient statistics :math:`\phi_i(\mathbf{u},\mathbf{g})` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, \mathbf{g}' )= T_{ij}(\mathbf{g}',\mathbf{g}) \phi_j(\mathbf{u}, \mathbf{g}); \quad i,j = 0, \cdots, M
+          \end{equation}
+
+      with :math:`\phi_i(\mathbf{u},\mathbf{g})` is sufficient statistics parameterized by gauge parameters :math:`\mathbf{g}`.
+
+      :param moments: the moments :math:`M_i(\mathbf{g})` of sufficient statistics
+      :type moments: float array of shape (M+1)
+      :param gauge_para2: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}'`
+      :type gauge_para2: tuple
+      :param gauge_para1: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}`
+      :type gauge_para1: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: the moments :math:`M_i(\mathbf{g}')` of sufficient statistics
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_gauge_transformation(betas, gauge_para2=(), gauge_para1=(), base_args=())
+
+      Gauge transformation for natural parameters. The transformation is defined as
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \beta_i(\mathbf{g}' )= T_{ij}^T(\mathbf{g},\mathbf{g}') \beta_j(\mathbf{g}); \quad i,j = 0, \cdots, M
+          \end{equation}
+
+      which is induced from the gauge transformation :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between sufficient statistics :math:`\phi_i(\mathbf{u},\mathbf{g})` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, \mathbf{g}' )= T_{ij}(\mathbf{g}',\mathbf{g}) \phi_j(\mathbf{u}, \mathbf{g}); \quad i,j = 0, \cdots, M
+          \end{equation}
+
+      with :math:`\phi_i(\mathbf{u},\mathbf{g})` is sufficient statistics parameterized by gauge parameters :math:`\mathbf{g}`.
+
+      :param betas: the moments :math:`\beta_i(\mathbf{g})` of sufficient statistics
+      :type betas: float array of shape (M+1)
+      :param gauge_para2: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}'`
+      :type gauge_para2: tuple
+      :param gauge_para1: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}`
+      :type gauge_para1: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: the moments :math:`\beta_i(\mathbf{g}')` of sufficient statistics
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: standard_gauge_para_from_moments(moments, gauge_para=())
+
+      the standard gauge parameters :math:`\mathbf{g}` prefered among all possible gauges.
+
+      :param moments: The array containing moments of sufficient statistics given the gauge parameters :math:`\mathbf{g}`
+      :type moments: float array of shape (N)
+      :param gauge_para: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}`
+      :type gauge_para: tuple
+
+      :returns: the standard gauge parameters :math:`\mathbf{g}` prefered among all possible gauges.
+      :rtype: float array
+
+
+   .. py:method:: suff_statistics(u, gauge_paras=())
+
+      Compute the value of sufficient statistics at certain :math:`\mathbf{u}`
+
+      :param u: The 3D sample vector
+      :type u: float array of shape (3)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+
+      :returns: The array :math:`\{ \phi_0(\mathbf{u}), \cdots, \phi_M(\mathbf{u}) \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: moments_to_natural_paras(betas_ini, moments, gauge_paras=(), base_args=())
+
+      Compute the natural parameters :math:`\boldsymbol{\beta}` from the moments of sufficient statistics.
+
+      Specific implementation (Children) of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: A set of proposed natural parameter :math:`\boldsymbol{\beta}`
+      :type betas: float array of shape (M+1)
+      :param moments: the target moments that we expect exponential familty with the natural parameter :math:`\boldsymbol{\beta}` to have.
+      :type moments: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns:
+
+                A tuple containing
+
+                    **beta**: *float array of shape (M+1)* - The natural parameters :math:`\boldsymbol{\beta}`
+
+                    **opt_info**: *tuple* - A tuple containing other information of the optimization process
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+   .. py:method:: natural_paras_to_moments(betas, gauge_paras=(), base_args=())
+
+      Compute the moments of sufficient statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: The array :math:`\{ M_0, \cdots, M_M \}`
+      :rtype: float array of shape (M+1)
+
+
+   .. py:method:: natural_paras_to_custom_moments(betas, statistics, gauge_paras=(), base_args=(), stats_gauge_paras=())
+
+      Compute the moments of custom statistics given natural parameters.
+
+      Specific implementation of BaseExpFamilyModel should replace gauge_paras and base_args to explicit arguments.
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param statistics:
+                         A float-valued or tensor-valued function :math:`\phi_{i_1,\cdots,i_k}` ( **u** , :math:`*` **gauge_paras** ) with
+
+                             **Parameters**:
+
+                                 **u** : float array of shape (3) - The 3D sample vector :math:`\mathbf{u}`
+
+                                 :math:`*` **gauge_paras** : - Arbitrary many extra parameters such as :math:`\mathbf{g}`. The :math:`*` refers to the unpacking operator in python.
+
+                             **Returns**:
+
+                                 float or array of arbitrary shape :math:`(d_1,\cdots,d_k)` -- the value of the statistic :math:`\phi_{i_1,\cdots,i_k}(\mathbf{u},\mathbf{g})`
+      :type statistics: function
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param stats_gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters the custom statistics function :math:`\phi_{i_1,\cdots,i_k}` required as **gauge_paras**. Defaut is (), an empty tuple.
+      :type stats_gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: The moment value :math:`M_{i_1,\cdots,i_k}(\mathbf{g})`
+      :rtype: float or array of arbitrary shape :math:`(d_1,\cdots,d_k)`
+
+
+   .. py:method:: natural_paras_to_fluid_properties(betas, gauge_paras=(), base_args=())
+
+      Compute the fluid properties including number density :math:`n`, density :math:`\rho`, flow velocities :math:`\mathbf{v} = \{v_\alpha, \alpha \in \{x,y,z\}\}`, temperature :math:`T`, pressure :math:`p`, stress :math:`\{\sigma_{\alpha \beta}, \alpha, \beta \in \{x,y,z\}\}` and heat flux :math:`\{q_{\alpha}, \alpha \in \{x,y,z\}\}`.
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \begin{split}
+          n &= \frac{\rho}{m}= \int f(\mathbf{u}) d^3 \mathbf{u} \\
+          v_\alpha &= \frac{1}{n}\int u_\alpha f(\mathbf{u}) d^3 \mathbf{u}\\
+          p  &= n k_B T = \frac{1}{3} \int m c_\alpha c_\alpha f(\mathbf{u}) d^3 \mathbf{u} \\
+          \sigma_{\alpha\beta} &= \int m c_\alpha c_\beta f(\mathbf{u}) d^3 \mathbf{u} - p \delta_{\alpha\beta} \\
+          \epsilon  &= \frac{3}{2} k_B T  = \frac{1}{n}\int \frac{m}{2} \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u} \\
+          q_\alpha &= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf{u}; \quad \alpha, \beta \in \{x,y,z\}
+          \end{split}
+          \end{equation}
+
+      in which :math:`m` is the mass of gas molecule.
+
+
+      :param betas: the natural parameter :math:`\boldsymbol{\beta}` of the distribution
+      :type betas: float array of shape (M+1)
+      :param gauge_paras: A tuple ( para1, para2, ... ) containing arbitrary many extra parameters, i.e :math:`\mathbf{g}` , required by sufficient statistics :math:`\{\phi_i\}` as **gauge_paras**. Defaut is (), an empty tuple.
+      :type gauge_paras: tuple
+      :param base_args: A tuple ( para1, para2, ... ) containing arbitrary many parameters required by **BaseSampler.sample**. Defaut is (), an empty tuple.
+      :type base_args: tuple
+
+      :returns: Array containing macroscopic quantities :math:`\{ \rho, n, v_x, v_y, v_z, T, p, \sigma_{xx}, \sigma_{xy}, \sigma_{xz}, \sigma_{yy}, \sigma_{yz}, \sigma_{zz}, q_x, q_y, q_z \}`
+      :rtype: float array of shape (16)
+
+
+
