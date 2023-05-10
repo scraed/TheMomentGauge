@@ -42,7 +42,7 @@ conda activate moment_gauge
 
 ### 4. Install JAX
 
-JAX is a required dependency for Moment Gauge. Follow the instructions below to install JAX with or without GPU support.
+JAX is a required dependency for Moment Gauge. Follow the instructions below to install JAX with or without GPU support. Our code has been tested on JAX 0.4.1, but you could use the latest version of JAX.
 
 #### CPU Installation
 
