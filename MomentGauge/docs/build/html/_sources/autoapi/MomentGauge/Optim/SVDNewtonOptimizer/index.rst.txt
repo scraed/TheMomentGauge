@@ -1,0 +1,248 @@
+:py:mod:`MomentGauge.Optim.SVDNewtonOptimizer`
+==============================================
+
+.. py:module:: MomentGauge.Optim.SVDNewtonOptimizer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Optim.SVDNewtonOptimizer.Newton_Optimizer
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Optim.SVDNewtonOptimizer.Newton_Optimizer_Iteration_Delta
+   MomentGauge.Optim.SVDNewtonOptimizer.Armijo_condition
+   MomentGauge.Optim.SVDNewtonOptimizer.Newton_Backtracking_Optimizer_JIT
+
+
+
+.. py:function:: Newton_Optimizer_Iteration_Delta(target_function, input_para, *aux_paras, reg_hessian=True)
+
+   A single iteration step of Newton's method for optimizing the **target_function** ( **input_para** , :math:`*` **aux_paras** ) w.r.t input_para.
+
+   :param target_function:
+                           the function to be optimized by the Netwons method whose
+
+                                   **Parameters**:
+
+                                       **input_para** : float array of shape (n) - The parameter to be optimized
+
+                                       :math:`*` **aux_paras** : - Arbitrary many extra parameters not to be optimized. The :math:`*` refers to the unpacking operator in python.
+
+                                   **Returns**:
+
+                                       float -- the function value
+   :type target_function: function
+   :param input_para: the input for the target_function to be optimized.
+   :type input_para: float array of shape (n)
+   :param \*aux_paras: Arbitrary many extra parameters not to be optimized for the target_function.
+   :param reg_hessian: Regularize the Hessian if the Cholesky decomposition failed. Default = True
+   :type reg_hessian: bool
+
+   :returns:
+
+             A tuple containing
+
+                 **delta_input**: *float array of shape (n)* - update direction for input_para according to a single step Newton's iteration.
+
+                 **value**: *float* - the current value of target_function
+
+                 **grads**: *float array of shape (n)* - current gradients of the target function w.r.t input_para
+
+                 **residual**: *float* - the residual as estimated target_function value change along the delta_input direction
+
+                 **hessian**: *float array of shape (n,n)* - current Hessian matrix of the target function w.r.t input_para
+
+                 **count**: *int* - The number of regularization applied on Hessian by adding a multiple of the identity
+   :rtype: Tuple
+
+
+.. py:function:: Armijo_condition(target_function, current_value, input_para, update_step, grad_para, *aux_paras, c=0.0005, atol=5e-06, rtol=1e-05, debug=False)
+
+   Check whether an update step 'update_para' of the Newton's method satisfy the Armijo's condition for sufficiently decreasing in the objective function
+
+   :param target_function:
+                           the function to be optimized by the Netwons method whose
+
+                                   **Parameters**:
+
+                                       **input_para** : float array of shape (n) - The parameter to be optimized
+
+                                       :math:`*` **aux_paras** : - Arbitrary many extra parameters not to be optimized. The :math:`*` refers to the unpacking operator in python.
+
+                                   **Returns**:
+
+                                       float -- the function value
+   :type target_function: function
+   :param current_value: the current value of the target_funciton w.r.t the parameters given in **input_para**
+   :type current_value: float
+   :param input_para: the input for the target_function to be optimized.
+   :type input_para: float array of shape (n)
+   :param update_step: the update direction proposed by the Newton's method, to be checked by the Armijo's condiiton.
+   :type update_step: float array of shape (n)
+   :param grad_para: the gradient direction of the target function at input_para, used in the Armijo's condiiton.
+   :type grad_para: float array of shape (n)
+   :param \*aux_paras: Arbitrary many extra parameters not to be optimized for the target_function.
+   :param c: the parameter used in the Armijo's condiiton, must lies in (0,1). Smaller c converges faster but less stable. default = 5e-4.
+   :type c: float
+   :param atol: the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+   :type atol: float
+   :param rtol: the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+   :type rtol: float
+   :param debug: print debug information if True.
+   :type debug: bool
+
+   :returns:
+
+             A tuple containing
+
+                 **satisfied**: *bool* - a bool indicating whether the **update_step** satisfy the Armijo's condition
+
+                 **delta_value**: *float* - the decrease of target_function at the **update_step** direction.
+
+                 **grad_delta_value**: *float* - the expected minimal decrease of target function at the **update_step** direction. The Armijo condition is satisfied if **delta_value** is greater than **grad_delta_value**.
+
+                 **target_value**: *float* - the value of target_function at the **update_step** direction. It equals **current_value** - **delta_value**
+   :rtype: Tuple
+
+
+.. py:function:: Newton_Backtracking_Optimizer_JIT(target_function, input_para, *aux_paras, alpha=1.0, beta=0.5, c=0.0005, atol=5e-06, rtol=1e-05, max_iter=100, max_back_tracking_iter=25, tol=1e-06, min_step_size=1e-06, reg_hessian=True, debug=False)
+
+   optimization of the target_function using the Newton's method with backtracking line search according to the Armijo's condition.
+
+   :param target_function:
+                           the function to be optimized by the Netwons method whose
+
+                                   **Parameters**:
+
+                                       **input_para** : float array of shape (n) - The parameter to be optimized
+
+                                       :math:`*` **aux_paras** : - Arbitrary many extra parameters not to be optimized. The :math:`*` refers to the unpacking operator in python.
+
+                                   **Returns**:
+
+                                       float -- the function value
+   :type target_function: function
+   :param input_para: the input parameters for the target_function to be optimized.
+   :type input_para: float array of shape (n)
+   :param \*aux_paras: Arbitrary many extra parameters not to be optimized for the target_function.
+   :param alpha: the initial step size used in backtracking line search, default = 1
+   :type alpha: float
+   :param beta: the decreasing factor of the step size used in backtracking line search, default = 0.5
+   :type beta: float
+   :param c: the parameter used in the Armijo's condiiton, must lies in (0,1), default = 5e-4
+   :type c: float
+   :param atol: the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+   :type atol: float
+   :param rtol: the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+   :type rtol: float
+   :param max_iter: the maximal iteration allowed for the Netwon's method, default = 100
+   :type max_iter: int
+   :param max_back_tracking_iter: the maximal iteration allowed for the backtracking line search, default = 25
+   :type max_back_tracking_iter: int
+   :param tol: the tolerance for residual, below which the optimization stops.
+   :type tol: float
+   :param min_step_size: the minimum step size given by back tracking, below which the optimization stops, default = 1e-6.
+   :type min_step_size: float
+   :param reg_hessian: Regularize the Hessian if the Cholesky decomposition failed. Default = True
+   :type reg_hessian: bool
+   :param debug: print debug information if True.
+   :type debug: bool
+
+   :returns:
+
+             A tuple containing
+
+                 **opt_para**: *float array of shape (n)* - The optimized parameters.
+
+                 **values**: *float* - the optimal value of target_function.
+
+                 **residuals**: *float* - the residual of the optimization.
+
+                 **step**: *float* - the total number of Newton's step iteration.
+
+                 **bsteps**: *float* - the total number of Backtracking step.
+   :rtype: Tuple
+
+
+.. py:class:: Newton_Optimizer(target_function, alpha=1.0, beta=0.5, c=0.0005, atol=5e-06, rtol=1e-05, max_iter=100, max_back_tracking_iter=25, tol=1e-06, min_step_size=1e-06, reg_hessian=True, debug=False)
+
+   Bases: :py:obj:`MomentGauge.Optim.BaseOptimizer.BaseOptimizer`
+
+   
+   Newton optimizer
+
+   :param target_function:
+                           the function to be optimized by the Netwons method whose
+
+                                   **Parameters**:
+
+                                       **input_para** : float array of shape (n) - The parameter to be optimized
+
+                                       :math:`*` **aux_paras** : - Arbitrary many extra parameters not to be optimized. The :math:`*` refers to the unpacking operator in python.
+
+                                   **Returns**:
+
+                                       float -- the function value
+   :type target_function: function
+   :param alpha: the initial step size used in backtracking line search, default = 1
+   :type alpha: float
+   :param beta: the decreasing factor of the step size used in backtracking line search, default = 0.5
+   :type beta: float
+   :param c: the parameter used in the Armijo's condiiton, must lies in (0,1), default = 5e-4
+   :type c: float
+   :param atol: the absolute error tolerance of the Armijo's condiiton since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 5e-6.
+   :type atol: float
+   :param rtol: the relative error tolerance of the Armijo's condition since we use -(atol + rtol*abs(next_value)) instead of 0 to handle single precision numerical error.  default = 1e-5.
+   :type rtol: float
+   :param max_iter: the maximal iteration allowed for the Netwon's method, default = 100
+   :type max_iter: int
+   :param max_back_tracking_iter: the maximal iteration allowed for the backtracking line search, default = 25
+   :type max_back_tracking_iter: int
+   :param tol: the tolerance for residual, below which the optimization stops.
+   :type tol: float
+   :param min_step_size: the minimum step size given by back tracking, below which the optimization stops, default = 1e-6.
+   :type min_step_size: float
+   :param reg_hessian: Regularize the Hessian if the Cholesky decomposition failed. Default = True
+   :type reg_hessian: bool
+   :param debug: print debug information if True.
+   :type debug: bool
+
+   .. py:method:: optimize(ini_para, *aux_paras)
+
+      optimization of the target_function using the Newton's method with backtracking line search according to the Armijo's condition.
+
+      :param ini_para: the initial parameters for the target_function to be optimized.
+      :type ini_para: float array of shape (n)
+      :param \*aux_paras: Arbitrary many extra parameters not to be optimized for the target_function.
+
+      :returns:
+
+                A tuple containing
+
+                    **opt_para**: *float array of shape (n)* - The optimized parameters.
+
+                    **opt_info**: *tuple* - A tuple containing
+
+                        **values**: *float* - the optimal value of target_function.
+
+                        **residuals**: *float* - the residual of the optimization.
+
+                        **step**: *float* - the total number of Newton's step iteration.
+
+                        **bsteps**: *float* - the total number of Backtracking step.
+      :rtype: Tuple
+
+
+

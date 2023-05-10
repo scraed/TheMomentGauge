@@ -1,0 +1,66 @@
+:py:mod:`MomentGauge.Sampler.Base`
+==================================
+
+.. py:module:: MomentGauge.Sampler.Base
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Sampler.Base.BaseSampler
+
+
+
+
+.. py:class:: BaseSampler(constant)
+
+   
+   The base class for sampler.
+   A sampler is a probability distribution :math:`f(\mathbf{u};\boldsymbol{\beta})` parametrized by :math:`\boldsymbol{\beta}` from which we could draw samples and compute likelihoods.
+
+   :param constant: a dictionary with necessary constants provided as key-value pairs.
+   :type constant: dictionary
+
+   .. attribute:: constant
+
+      a dictionary with necessary constants provided as key-value pairs.
+
+      :type: dict
+
+   .. py:method:: sample(betas)
+      :abstractmethod:
+
+      Generate N samples :math:`\mathbf{u}_i` from the distribution :math:`f(\mathbf{u})` with proper weights :math:`w_i` such that
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \int \phi(\mathbf{u}) f(\mathbf{u}) d \mathbf{u} \approx \sum_{i=1}^N w_i \phi(\mathbf{u}_i),
+          \end{equation}
+
+      in whic N depends on the particular implementation of the sampler.
+
+      :param betas: the n-dim parameter :math:`\boldsymbol{\beta}` specifying the distributions
+      :type betas: array of shape (n)
+
+      :returns:
+
+                A tuple containing
+
+                    **samples**: *array of shape (N,d)* - N samples of d-dim vectors :math:`\mathbf{u}_i` draw from the distribution.
+
+                    **weights**: *array of shape (N)* - non-negative weights :math:`w_i` for each samples. The summation of weights equals to 1.
+
+                    **log_likelihoods**: *array of shape (N)* - the log-likelihoods :math:`\log f(\mathbf{u}_i)` for each samples
+      :rtype: Tuple
+
+      :raises NotImplementedError: This method is not implemented
+
+
+

@@ -1,0 +1,660 @@
+:py:mod:`MomentGauge.Statistic.PolyGaugedStatistics`
+====================================================
+
+.. py:module:: MomentGauge.Statistic.PolyGaugedStatistics
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics
+   MomentGauge.Statistic.PolyGaugedStatistics.Maxwellian_1D_gauged_stats
+   MomentGauge.Statistic.PolyGaugedStatistics.PolyGaugedStatistics_sr_sx_wx
+   MomentGauge.Statistic.PolyGaugedStatistics.ESBGK_1D_gauged_stats
+   MomentGauge.Statistic.PolyGaugedStatistics.M35_1D_gauged_stats
+   MomentGauge.Statistic.PolyGaugedStatistics.M35_P2_1D_gauged_stats
+
+
+
+
+.. py:class:: PolyGaugedStatistics(base_statistics: MomentGauge.Statistic.PolyStatistics.PolyStatistics)
+
+   Bases: :py:obj:`MomentGauge.Statistic.PolyStatistics.PolyStatistics`
+
+   
+   The base class for store pre-defined gauged polynomial statistics.
+
+   The gauged statistics are transformation of ordinary polynomial statistics by a gauge transformation :math:`A_{ij}(\mathbf{g})`.
+
+   Specifically, given a set of polynomial statistics :math:`\phi_i(\mathbf{u})`, their gauged version is a set of statistics :math:`\phi_i(\mathbf{u}, \mathbf{g})` admits extra gauge parameters :math:`\mathbf{g}` such that
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \phi_i(\mathbf{u}, \mathbf{g}) = A_{ij}(\mathbf{g})\phi_j(\mathbf{u})
+       \end{equation}
+
+   Moreover we have gauge transformation between different gauge parameters
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \phi_i(\mathbf{u}, \mathbf{g}') = T_{ij}(\mathbf{g}',\mathbf{g})\phi_j(\mathbf{u}, \mathbf{g})
+       \end{equation}
+
+   .. attribute:: suff_stats
+
+
+
+      a list of moment functions [:math:`\phi_i`, i=0,\cdots,N-1] in which each :math:`\phi_i` is a polynomial function :math:`\phi_i` ( **u**, :math:`*` **gauge_paras** ) whose
+
+          **Parameters**:
+
+              **u** : float array of shape (3) - The 3D sample vector (:math:`u_x`, :math:`u_y`, :math:`u_z`)
+
+              :math:`*` **gauge_paras** : - Arbitrary many extra parameters. The :math:`*` refers to the unpacking operator in python.
+
+          **Returns**:
+
+              float -- the moment value
+
+      :type: list
+
+   .. py:method:: gauge(func)
+      :abstractmethod:
+
+      Convert the functions of :math:`\mathbf{u}` into function of :math:`\mathbf{u}` and gauge parameters
+
+      :param func:
+                   a polynomial function :math:`\phi` ( **u** ) whose
+
+                       **Parameters**:
+
+                           **u** : float array of shape (3) - The 3D sample vector
+
+                       **Returns**:
+
+                           float -- the moment value
+      :type func: function
+
+      :returns:
+
+                a polynomial function :math:`\phi` ( **u**, :math:`*` **gauge_paras** ) whose
+
+                    **Parameters**:
+
+                        **u** : float array of shape (3) - The 3D sample vector
+
+                        :math:`*` **gauge_paras** : - Arbitrary many extra parameters. The :math:`*` refers to the unpacking operator in python.
+
+                    **Returns**:
+
+                        float -- the moment value
+      :rtype: function
+
+
+   .. py:method:: gauge_transformation_matrix(gauge_para2=(), gauge_para1=())
+      :abstractmethod:
+
+      Compute the gauge transformation matrix :math:`T_{ij}(\mathbf{g}',\mathbf{g})` between different gauge parameters
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \phi_i(\mathbf{u}, \mathbf{g}') = T_{ij}(\mathbf{g}',\mathbf{g})\phi_j(\mathbf{u}, \mathbf{g})
+          \end{equation}
+
+      :param gauge_para2: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}'`
+      :type gauge_para2: tuple
+      :param gauge_para1: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}`
+      :type gauge_para1: tuple
+
+      :returns: the matrix :math:`T_{ij}(\mathbf{g}',\mathbf{g})`
+      :rtype: float array of shape (N,N)
+
+
+   .. py:method:: standard_gauge_paras(moments, gauge_para=())
+
+      the standard gauge parameters :math:`\mathbf{g}` prefered among all possible gauges.
+
+      :param moments: The array containing moments of sufficient statistics given the gauge parameters :math:`\mathbf{g}`
+      :type moments: float array of shape (N)
+      :param gauge_para: Tuple containing arbitrary many extra gauge parameters such as :math:`\mathbf{g}`
+      :type gauge_para: tuple
+
+      :returns: the standard gauge parameters :math:`\mathbf{g}` prefered among all possible gauges.
+      :rtype: float array
+
+
+
+.. py:class:: Maxwellian_1D_gauged_stats
+
+   Bases: :py:obj:`PolyGaugedStatistics`
+
+   
+   The 1D version of polynomial statistics for 35 moments with gauge transformation.
+
+   .. attribute:: suff_stats
+
+
+
+      a list of moment functions [:math:`\phi_i,i=0,\cdots,2`] in which each :math:`\phi_i` is a polynomial function :math:`\phi_i` ( **u**, **gauge_paras** ) whose
+
+          **Parameters**:
+
+              **u** : float array of shape (3) - The 3D sample vector (:math:`u_x`, :math:`u_y`, :math:`u_z`)
+
+              **gauge_paras** : float array of shape (3) - The array (:math:`s`,:math:`w_x`).
+
+          **Returns**:
+
+              float -- the moment value
+
+      Specifically,
+
+      :math:`\phi_0` (**u** ) = 1.
+
+      :math:`\phi_1` (**u** ) = :math:`\bar{u}_x`
+
+      :math:`\phi_2` (**u** ) = :math:`\bar{u}_x^2 + \bar{u}_y^2 + \bar{u}_z^2`.
+
+      in which :math:`\bar{u}_x = \frac{u_x - w_x}{s}`, :math:`\bar{u}_y = \frac{u_y}{s}`, :math:`\bar{u}_z = \frac{u_z}{s}`
+
+      :type: list of length (9)
+
+   .. py:method:: gauge(func)
+
+      Convert the functions of :math:`\mathbf{u}` into function of :math:`\mathbf{u}` and gauge parameters (:math:`s`, :math:`w_x`).
+
+      :param func:
+                   a polynomial function :math:`\phi` ( **u** ) whose
+
+                       **Parameters**:
+
+                           **u** : float array of shape (3) - The 3D sample vector
+
+                       **Returns**:
+
+                           float -- the moment value
+      :type func: function
+
+      :returns:
+
+                a polynomial function :math:`\phi` ( **u**, **gauge_paras** ) whose
+
+                    **Parameters**:
+
+                        **u** : float array of shape (3) - The 3D sample vector
+
+                        **gauge_paras** : float array of shape (3) - The array (:math:`s`, :math:`w_x`).
+
+                    **Returns**:
+
+                        float -- the moment value
+      :rtype: function
+
+
+   .. py:method:: gauge_transformation_matrix(gauge_para2=(), gauge_para1=())
+
+      Compute the gauge transformation matrix between different gauge parameters
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s', w_x') )= T_{ij}(s', w_x',s, w_x) \phi_j(\mathbf{u}, (s, w_x)); \quad i,j = 0, \cdots, 2
+          \end{equation}
+
+      :param gauge_para2: A tuple containing the array (:math:`s'`, :math:`w_x'`) which is a float array of shape (2).
+      :type gauge_para2: tuple
+      :param gauge_para1: A tuple containing the array (:math:`s`, :math:`w_x`) which is a float array of shape (2).
+
+      :returns: the matrix :math:`T_{ij}(s', w_x',s, w_x)`
+      :rtype: float array of shape (3,3)
+
+
+   .. py:method:: standard_gauge_paras(moments, gauge_para=())
+
+      Compute the Hermite gauge parameters
+
+      :param moments: The array containing moments of sufficient statistics :math:`(M_0(s, w_x), M_1(s, w_x), M_2(s, w_x))`
+      :type moments: float array of shape (3)
+      :param gauge_para: A tuple containing the array (:math:`s`, :math:`w_x`) which is a float array of shape (2).
+      :type gauge_para: tuple
+
+      :returns: the Hermite gauge parameters (:math:`s`, :math:`w_x`)
+      :rtype: float array of shape (2)
+
+
+
+.. py:class:: PolyGaugedStatistics_sr_sx_wx(base_statistics: MomentGauge.Statistic.PolyStatistics.PolyStatistics)
+
+   Bases: :py:obj:`PolyGaugedStatistics`
+
+   
+   The base class for store pre-defined gauged polynomial statistics with gauge parameter :math:`s_r`, :math:`s_x`, and :math:`w_x`
+
+   The gauged statistics are transformation of ordinary polynomial statistics by a gauge transformation :math:`A_{ij}(\mathbf{g})`.
+
+   Specifically, given a set of polynomial statistics :math:`\phi_i(\mathbf{u})`, their gauged version is a set of statistics :math:`\phi_i(\mathbf{u}, \mathbf{g})` admits extra gauge parameters :math:`\mathbf{g}` such that
+
+   .. math::
+       :nowrap:
+
+       \begin{equation}
+       \phi_i(\mathbf{u}, \mathbf{g}) = A_{ij}(\mathbf{g})\phi_j(\mathbf{u}) = \phi_i(\bar{\mathbf{u}})
+       \end{equation}
+
+   such that :math:`\bar{\mathbf{u}}={ \bar{u}_x, \bar{u}_y, \bar{u}_z }`, :math:`\bar{u}_x = \frac{u_x - w_x}{s_x}`, :math:`\bar{u}_y = \frac{u_y}{s_r}`, :math:`\bar{u}_z = \frac{u_z}{s_r}`.
+
+   .. attribute:: suff_stats
+
+
+
+      a list of moment functions [:math:`\phi_i`, i=0,\cdots,N-1] in which each :math:`\phi_i` is a polynomial function :math:`\phi_i` ( **u**, :math:`*` **gauge_paras** ) whose
+
+          **Parameters**:
+
+              **u** : float array of shape (3) - The 3D sample vector (:math:`u_x`, :math:`u_y`, :math:`u_z`)
+
+              :math:`*` **gauge_paras** : - Arbitrary many extra parameters. The :math:`*` refers to the unpacking operator in python.
+
+          **Returns**:
+
+              float -- the moment value
+
+      :type: list
+
+   .. py:method:: gauge(func)
+
+      Convert the functions of :math:`\mathbf{u}` into function of :math:`\mathbf{u}` and gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+      :param func:
+                   a polynomial function :math:`\phi` ( **u** ) whose
+
+                       **Parameters**:
+
+                           **u** : float array of shape (3) - The 3D sample vector
+
+                       **Returns**:
+
+                           float -- the moment value
+      :type func: function
+
+      :returns:
+
+                a polynomial function :math:`\phi` ( **u**, **gauge_paras** ) whose
+
+                    **Parameters**:
+
+                        **u** : float array of shape (3) - The 3D sample vector
+
+                        **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+                    **Returns**:
+
+                        float -- the moment value
+      :rtype: function
+
+
+   .. py:method:: gauge_transformation_matrix(gauge_para2=(), gauge_para1=())
+
+      Compute the gauge transformation matrix between different gauge parameters
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+          \end{equation}
+      in which M is the number of sufficient statistics
+
+      :param gauge_para2: A tuple containing the array (:math:`s_r'`, :math:`s_x'`, :math:`w_x'`) which is a float array of shape (3).
+      :type gauge_para2: tuple
+      :param gauge_para1: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (3).
+
+      :returns: the matrix :math:`T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)`
+      :rtype: float array of shape (M,M)
+
+
+   .. py:method:: standard_gauge_paras(moments, gauge_para=())
+
+      Compute the Hermite gauge parameters
+
+      :param moments: The array containing moments of sufficient statistics :math:`(M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))`
+      :type moments: float array of shape (9)
+      :param gauge_para: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (2).
+      :type gauge_para: tuple
+
+      :returns: the Hermite gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`)
+      :rtype: float array of shape (3)
+
+
+
+.. py:class:: ESBGK_1D_gauged_stats
+
+   Bases: :py:obj:`PolyGaugedStatistics_sr_sx_wx`
+
+   
+   The 1D version of polynomial statistics for ESBGK moments with gauge transformation.
+
+   .. attribute:: suff_stats
+
+
+
+      a list of moment functions [:math:`\phi_i,i=0,\cdots,3`] in which each :math:`\phi_i` is a polynomial function :math:`\phi_i` ( **u**, **gauge_paras** ) whose
+
+          **Parameters**:
+
+              **u** : float array of shape (3) - The 3D sample vector (:math:`u_x`, :math:`u_y`, :math:`u_z`)
+
+              **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+          **Returns**:
+
+              float -- the moment value
+
+      Specifically,
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \{\phi_i(\mathbf{u}, (s_r, s_x, w_x) ),i=0,\cdots,3\} = \left\{1,\bar{u}_x,\bar{u}_x^2,\bar{u}_r^2,\right\}
+          \end{equation}
+
+      in which :math:`\bar{u}_x = \frac{u_x - w_x}{s_x}`, :math:`\bar{u}_r = \frac{u_r}{s_r}`, :math:`u_r = \sqrt{u_y^2+u_z^2}`
+
+      :type: list of length (4)
+
+   .. py:method:: gauge(func)
+
+      Convert the functions of :math:`\mathbf{u}` into function of :math:`\mathbf{u}` and gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+      :param func:
+                   a polynomial function :math:`\phi` ( **u** ) whose
+
+                       **Parameters**:
+
+                           **u** : float array of shape (3) - The 3D sample vector
+
+                       **Returns**:
+
+                           float -- the moment value
+      :type func: function
+
+      :returns:
+
+                a polynomial function :math:`\phi` ( **u**, **gauge_paras** ) whose
+
+                    **Parameters**:
+
+                        **u** : float array of shape (3) - The 3D sample vector
+
+                        **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+                    **Returns**:
+
+                        float -- the moment value
+      :rtype: function
+
+
+   .. py:method:: gauge_transformation_matrix(gauge_para2=(), gauge_para1=())
+
+      Compute the gauge transformation matrix between different gauge parameters
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+          \end{equation}
+      in which M is the number of sufficient statistics
+
+      :param gauge_para2: A tuple containing the array (:math:`s_r'`, :math:`s_x'`, :math:`w_x'`) which is a float array of shape (3).
+      :type gauge_para2: tuple
+      :param gauge_para1: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (3).
+
+      :returns: the matrix :math:`T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)`
+      :rtype: float array of shape (M,M)
+
+
+   .. py:method:: standard_gauge_paras(moments, gauge_para=())
+
+      Compute the Hermite gauge parameters
+
+      :param moments: The array containing moments of sufficient statistics :math:`(M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))`
+      :type moments: float array of shape (9)
+      :param gauge_para: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (2).
+      :type gauge_para: tuple
+
+      :returns: the Hermite gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`)
+      :rtype: float array of shape (3)
+
+
+
+.. py:class:: M35_1D_gauged_stats
+
+   Bases: :py:obj:`PolyGaugedStatistics_sr_sx_wx`
+
+   
+   The 1D version of polynomial statistics for 35 moments with gauge transformation.
+
+   .. attribute:: suff_stats
+
+
+
+      a list of moment functions [:math:`\phi_i,i=0,\cdots,8`] in which each :math:`\phi_i` is a polynomial function :math:`\phi_i` ( **u**, **gauge_paras** ) whose
+
+          **Parameters**:
+
+              **u** : float array of shape (3) - The 3D sample vector (:math:`u_x`, :math:`u_y`, :math:`u_z`)
+
+              **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+          **Returns**:
+
+              float -- the moment value
+
+      Specifically,
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \{\phi_i(\mathbf{u}, (s_r, s_x, w_x) ),i=0,\cdots,8\} = \left\{1,\bar{u}_x,\frac{\bar{u}_x^2-1}{\sqrt{2}},\frac{\bar{u}_r^2}{2} -1,\frac{\bar{u}_x^3-3\bar{u}_x}{\sqrt{6}},\frac{\bar{u}_x^4-6\bar{u}_x^2+3}{2 \sqrt{6}},\frac{1}{8} \bar{u}_r^4-\bar{u}_r^2+1,\frac{1}{2} \bar{u}_x (\bar{u}_r^2-1),\frac{( \bar{u}_x^2 -1)( \bar{u}_r^2-2)}{2 \sqrt{2}}\right\}
+          \end{equation}
+
+      in which :math:`\bar{u}_x = \frac{u_x - w_x}{s_x}`, :math:`\bar{u}_r = \frac{u_r}{s_r}`, :math:`u_r = \sqrt{u_y^2+u_z^2}`
+
+      :type: list of length (9)
+
+   .. py:method:: conservative_decomposition(moments, gauge_para=())
+
+      Decompose the moments as the summation of the conserved part and the non-conserved part
+
+      :param moments: The array containing moments of sufficient statistics :math:`(M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))`
+      :type moments: float array of shape (9)
+      :param gauge_para: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (2).
+      :type gauge_para: tuple
+
+      :returns: the conservative part of the moments. The non conservative part is moments - conservative part.
+      :rtype: float array of shape (9)
+
+
+   .. py:method:: gauge(func)
+
+      Convert the functions of :math:`\mathbf{u}` into function of :math:`\mathbf{u}` and gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+      :param func:
+                   a polynomial function :math:`\phi` ( **u** ) whose
+
+                       **Parameters**:
+
+                           **u** : float array of shape (3) - The 3D sample vector
+
+                       **Returns**:
+
+                           float -- the moment value
+      :type func: function
+
+      :returns:
+
+                a polynomial function :math:`\phi` ( **u**, **gauge_paras** ) whose
+
+                    **Parameters**:
+
+                        **u** : float array of shape (3) - The 3D sample vector
+
+                        **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+                    **Returns**:
+
+                        float -- the moment value
+      :rtype: function
+
+
+   .. py:method:: gauge_transformation_matrix(gauge_para2=(), gauge_para1=())
+
+      Compute the gauge transformation matrix between different gauge parameters
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+          \end{equation}
+      in which M is the number of sufficient statistics
+
+      :param gauge_para2: A tuple containing the array (:math:`s_r'`, :math:`s_x'`, :math:`w_x'`) which is a float array of shape (3).
+      :type gauge_para2: tuple
+      :param gauge_para1: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (3).
+
+      :returns: the matrix :math:`T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)`
+      :rtype: float array of shape (M,M)
+
+
+   .. py:method:: standard_gauge_paras(moments, gauge_para=())
+
+      Compute the Hermite gauge parameters
+
+      :param moments: The array containing moments of sufficient statistics :math:`(M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))`
+      :type moments: float array of shape (9)
+      :param gauge_para: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (2).
+      :type gauge_para: tuple
+
+      :returns: the Hermite gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`)
+      :rtype: float array of shape (3)
+
+
+
+.. py:class:: M35_P2_1D_gauged_stats
+
+   Bases: :py:obj:`PolyGaugedStatistics_sr_sx_wx`
+
+   
+   The 1D version of polynomial statistics for 35 moments with gauge transformation.
+
+   .. attribute:: suff_stats
+
+
+
+      a list of moment functions [:math:`\phi_i,i=0,\cdots,8`] in which each :math:`\phi_i` is a polynomial function :math:`\phi_i` ( **u**, **gauge_paras** ) whose
+
+          **Parameters**:
+
+              **u** : float array of shape (3) - The 3D sample vector (:math:`u_x`, :math:`u_y`, :math:`u_z`)
+
+              **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+          **Returns**:
+
+              float -- the moment value
+
+      Specifically,
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+          \{\phi_i(\mathbf{u}, (s_r, s_x, w_x) ),i=0,\cdots,10\} = \left\{1,\bar{u}_x,\frac{\bar{u}_x^2-1}{\sqrt{2}},\frac{\bar{u}_r^2}{2} -1,\frac{\bar{u}_x^3-3\bar{u}_x}{\sqrt{6}},\frac{\bar{u}_x^4-6\bar{u}_x^2+3}{2 \sqrt{6}},\frac{1}{8} \bar{u}_r^4-\bar{u}_r^2+1,\frac{1}{2} \bar{u}_x (\bar{u}_r^2-1),\frac{( \bar{u}_x^2 -1)( \bar{u}_r^2-2)}{2 \sqrt{2}} , \frac{\bar{u}_x^5}{2 \sqrt{30}}-\sqrt{\frac{5}{6}} \bar{u}_x^3+\frac{1}{2} \sqrt{\frac{15}{2}} \bar{u}_x, \frac{\bar{u}_x^6}{12 \sqrt{5}}-\frac{\sqrt{5} \bar{u}_x^4}{4}+\frac{3 \sqrt{5} \bar{u}_x^2}{4}-\frac{\sqrt{5}}{4}   \right\}
+          \end{equation}
+
+      in which :math:`\bar{u}_x = \frac{u_x - w_x}{s_x}`, :math:`\bar{u}_r = \frac{u_r}{s_r}`, :math:`u_r = \sqrt{u_y^2+u_z^2}`
+
+      :type: list of length (11)
+
+   .. py:method:: gauge(func)
+
+      Convert the functions of :math:`\mathbf{u}` into function of :math:`\mathbf{u}` and gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+      :param func:
+                   a polynomial function :math:`\phi` ( **u** ) whose
+
+                       **Parameters**:
+
+                           **u** : float array of shape (3) - The 3D sample vector
+
+                       **Returns**:
+
+                           float -- the moment value
+      :type func: function
+
+      :returns:
+
+                a polynomial function :math:`\phi` ( **u**, **gauge_paras** ) whose
+
+                    **Parameters**:
+
+                        **u** : float array of shape (3) - The 3D sample vector
+
+                        **gauge_paras** : float array of shape (3) - The array (:math:`s_r`, :math:`s_x`, :math:`w_x`).
+
+                    **Returns**:
+
+                        float -- the moment value
+      :rtype: function
+
+
+   .. py:method:: gauge_transformation_matrix(gauge_para2=(), gauge_para1=())
+
+      Compute the gauge transformation matrix between different gauge parameters
+
+      .. math::
+          :nowrap:
+
+          \begin{equation}
+              \phi_i(\mathbf{u}, (s_r', s_x', w_x') )= T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x) \phi_j(\mathbf{u}, (s_r, s_x, w_x)); \quad i,j = 0, \cdots, M
+          \end{equation}
+      in which M is the number of sufficient statistics
+
+      :param gauge_para2: A tuple containing the array (:math:`s_r'`, :math:`s_x'`, :math:`w_x'`) which is a float array of shape (3).
+      :type gauge_para2: tuple
+      :param gauge_para1: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (3).
+
+      :returns: the matrix :math:`T_{ij}(s_r', s_x', w_x',s_r, s_x, w_x)`
+      :rtype: float array of shape (M,M)
+
+
+   .. py:method:: standard_gauge_paras(moments, gauge_para=())
+
+      Compute the Hermite gauge parameters
+
+      :param moments: The array containing moments of sufficient statistics :math:`(M_0(s_r, s_x, w_x), \cdots, M_8(s_r, s_x, w_x))`
+      :type moments: float array of shape (9)
+      :param gauge_para: A tuple containing the array (:math:`s_r`, :math:`s_x`, :math:`w_x`) which is a float array of shape (2).
+      :type gauge_para: tuple
+
+      :returns: the Hermite gauge parameters (:math:`s_r`, :math:`s_x`, :math:`w_x`)
+      :rtype: float array of shape (3)
+
+
+

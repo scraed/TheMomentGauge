@@ -1,0 +1,17 @@
+:py:mod:`MomentGauge.Statistic`
+===============================
+
+.. py:module:: MomentGauge.Statistic
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   PolyGaugedStatistics/index.rst
+   PolyStatistics/index.rst
+   SymbolicPolynomials/index.rst
+
+

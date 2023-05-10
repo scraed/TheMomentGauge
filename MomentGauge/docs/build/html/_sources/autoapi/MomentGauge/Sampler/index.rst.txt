@@ -1,0 +1,19 @@
+:py:mod:`MomentGauge.Sampler`
+=============================
+
+.. py:module:: MomentGauge.Sampler
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   Base/index.rst
+   CanonicalExpFamilySampler/index.rst
+   ExponentialFamilySampler/index.rst
+   QuadratureSampler/index.rst
+   SamplerUtility/index.rst
+
+
