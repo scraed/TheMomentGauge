@@ -80,7 +80,7 @@ cd demos
 python NormalShock_LaxWendroff_Ma1.2.py
 ```
 
-For more information on using Moment Gauge, refer to the project documentation and examples provided in the repository.
+For more information on using Moment Gauge, refer to the project [documentation](https://scraed.github.io/TheMomentGauge/) and examples provided in the repository.
 
 ## Citation
 
