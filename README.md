@@ -40,7 +40,40 @@ Activate the Conda environment by running:
 conda activate moment_gauge
 ```
 
-### 4. Add the package to PYTHONPATH
+### 4. Install JAX
+
+JAX is a required dependency for Moment Gauge. Follow the instructions below to install JAX with or without GPU support.
+
+#### CPU Installation
+
+To install a CPU-only version of JAX, run the following commands:
+
+```
+pip install --upgrade pip
+pip install --upgrade "jax[cpu]"
+```
+
+#### GPU Installation (CUDA, installed via pip, easier)
+
+First, install the NVIDIA driver. We recommend installing the newest driver available from NVIDIA, but the driver must be version >= 525.60.13 for CUDA 12 and >= 450.80.02 for CUDA 11 on Linux.
+
+Next, run the following commands:
+
+```
+pip install --upgrade pip
+
+# CUDA 12 installation (wheels only available on Linux)
+pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+
+# CUDA 11 installation (wheels only available on Linux)
+pip install --upgrade "jax[cuda11_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+```
+
+#### GPU Installation (CUDA, installed locally, harder)
+
+Please refer to the [official JAX installation guide](https://github.com/google/jax#installation) for instructions on installing JAX with a locally installed CUDA.
+
+### 5. Add the package to PYTHONPATH
 
 In order to use the Moment Gauge library in your Python projects, you need to add the package to your PYTHONPATH. Replace `[directory to moment gauge package]` with the full path to the `TheMomentGauge` directory on your system. 
 

@@ -1,0 +1,7 @@
+channels:
+  - defaults
+dependencies:
+  - scikit-learn
+  - pip:
+      - sympy==1.11.1
+      - jax==0.4.1
