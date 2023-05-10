@@ -1,67 +1,63 @@
-# Moment Gauge Installation Guide
+# Moment Gauge
 
-This guide will help you install and set up the Moment Gauge project on your local machine.
+Moment Gauge is a Python library for the maximal entropy moment method based on JAX. This library allows you to efficiently perform moment-based computations in Python using the power of JAX.
 
-## Prerequisites
+## Installation
 
-You will need to have Anaconda or Miniconda installed on your system. If you don't have it already, please follow the instructions to download and install Anaconda from [here](https://www.anaconda.com/distribution/) or Miniconda from [here](https://docs.conda.io/en/latest/miniconda.html).
+Follow these steps to install Moment Gauge and its dependencies:
 
-## Step 1: Clone the Moment Gauge Repository
+### 1. Clone the repository
 
-Clone the Moment Gauge repository from GitHub to your local machine using the following command:
+First, clone the Moment Gauge repository from GitHub using the following command:
 
 ```
 git clone https://github.com/scraed/TheMomentGauge.git
 ```
 
-Replace `username` with the appropriate GitHub username.
+This will create a new directory called `TheMomentGauge` containing the project files.
 
-## Step 2: Create a Conda Environment
+### 2. Create a Conda environment
 
-Navigate to the Moment Gauge directory:
+To install the required dependencies, create a new Conda environment using the provided `environment.yml` file. First, navigate to the `TheMomentGauge` directory:
 
 ```
-cd moment-gauge
+cd TheMomentGauge
 ```
 
-Create a new conda environment using the `environment.yml` file provided:
+Next, create the Conda environment:
 
 ```
 conda env create -f environment.yml
 ```
 
-This will create a new environment named `moment-gauge` with all the necessary dependencies.
+This command will create a new Conda environment with the necessary dependencies.
 
-## Step 3: Activate the Environment
+### 3. Activate the Conda environment
 
-Activate the newly created environment:
-
-```
-conda activate moment-gauge
-```
-
-## Step 4: Add Moment Gauge to Python Path
-
-Add the Moment Gauge package to your Python path by running the following command:
+Activate the Conda environment by running:
 
 ```
-export PYTHONPATH=$PYTHONPATH:[directory to moment gauge package]
+conda activate moment_gauge
 ```
 
-Replace `[directory to moment gauge package]` with the full path to the `moment-gauge` directory you cloned in Step 1.
+### 4. Add the package to PYTHONPATH
 
-## Step 5: Verify Installation
+In order to use the Moment Gauge library in your Python projects, you need to add the package to your PYTHONPATH. Replace `[directory to moment gauge package]` with the full path to the `TheMomentGauge` directory on your system. 
 
-You should now be able to use the Moment Gauge package in your Python projects. To verify that the installation was successful, open a Python interpreter and try to import the package:
-
-```
-python
-```
+For example, if the directory is located at `/home/user/TheMomentGauge`, the command would be:
 
 ```
-import moment_gauge
+export PYTHONPATH=$PYTHONPATH:/home/user/TheMomentGauge
 ```
 
-If there are no errors, the installation was successful.
+To make this change permanent, add the above command to your shell's configuration file (e.g., `.bashrc` or `.zshrc`).
 
-That's it! You have successfully installed and set up the Moment Gauge project. Happy coding!
+## Usage
+
+With Moment Gauge installed, you can now use the library in your Python projects by importing it as follows:
+
+```python
+import MomentGauge
+```
+
+For more information on using Moment Gauge, refer to the project documentation and examples provided in the repository.
