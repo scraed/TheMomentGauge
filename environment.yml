@@ -5,5 +5,7 @@ channels:
 dependencies:
   - scikit-learn
   - matplotlib
+  - python=3.11.0
+  - pip=22.3.1
   - pip:
       - sympy==1.11.1
