@@ -81,3 +81,18 @@ python NormalShock_LaxWendroff_Ma1.2.py
 ```
 
 For more information on using Moment Gauge, refer to the project documentation and examples provided in the repository.
+
+## Citation
+
+If you use Moment Gauge in your research, please cite our paper:
+
+```
+@misc{zheng2023stabilizing,
+      title={Stabilizing the Maximal Entropy Moment Method for Rarefied Gas Dynamics at Single-Precision},
+      author={Candi Zheng and Wang Yang and Shiyi Chen},
+      year={2023},
+      eprint={2303.02898},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn}
+}
+```
