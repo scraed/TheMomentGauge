@@ -46,7 +46,7 @@ conda activate moment_gauge
 
 ### 4. Install JAX
 
-JAX is a required dependency for Moment Gauge. Follow the instructions below to install JAX with or without GPU support. Please refer to the [official JAX installation guide](https://github.com/google/jax#installation) for more instructions on installing JAX. You could use the latest version of JAX, but we have only tested the code on JAX 0.4.1. Please report to us if the code does not campatible with the latest version of JAX.
+JAX is a required dependency for Moment Gauge. Follow the instructions below to install JAX with or without GPU support. You could use the latest version of JAX, but we have only tested the code on JAX 0.4.1. Please report to us if the code does not campatible with the latest version of JAX.
 
 #### CPU Installation
 
@@ -57,19 +57,9 @@ pip install --upgrade pip
 pip install --upgrade "jax[cpu]"
 ```
 
-#### GPU Installation (CUDA, installed via pip)
+#### GPU Installation 
 
-First, install the NVIDIA driver. Next, run the following commands:
-
-```
-pip install --upgrade pip
-
-# CUDA 12 installation (wheels only available on Linux)
-pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-
-# CUDA 11 installation (wheels only available on Linux)
-pip install --upgrade "jax[cuda11_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-```
+Please refer to the [official JAX installation guide](https://github.com/google/jax#installation) for more instructions on installing JAX with GPU support.
 
 ### 5. Add the package to PYTHONPATH
 
