@@ -16,6 +16,7 @@ from MomentGauge.Models.ESBGK import ESBGK_Canonical_Gauged_Legendre_1D
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+
 #import h5py
 
 #jax.config.update('jax_platform_name', 'cpu')
@@ -46,7 +47,7 @@ M35 = M35_Gauged_Canonical_Legendre_1D(constant)
 ESBGK = ESBGK_Canonical_Gauged_Legendre_1D(constant)
 Maxwell = Maxwell_Canonical_Gauged_Legendre_1D(constant) 
 
-Grid_info = Shock_Grid_info(PhyConst, 60)
+Grid_info = Shock_Grid_info(PhyConst, 25)
 
 delta_x = Grid_info.delta_x
 cell_interfaces = Grid_info.cell_interfaces
@@ -352,8 +353,8 @@ def transport(moments, paras, gauges, domain, delta_t, verbose = False):
         jax.debug.print("Phivec minus: {x}", x=phi_vec_minus_half )
 
 
-    fluxes_minus_half = Force_fluxes_minus_half + phi_vec_minus_half*(RI_fluxes_minus_half - Force_fluxes_minus_half)
-    fluxes_plus_half = Force_fluxes_plus_half + phi_vec_plus_half*(RI_fluxes_plus_half - Force_fluxes_plus_half)
+    fluxes_minus_half = RI_fluxes_minus_half
+    fluxes_plus_half = RI_fluxes_plus_half
     # Update the moments according to the transport part of moment equations
     Transport_terms = 1/delta_x*(fluxes_minus_half - fluxes_plus_half)
     #delta_t = CFL_ratio*delta_x/jnp.max(speeds)
@@ -549,8 +550,6 @@ if __name__ == "__main__":
             jax.debug.print("vx: {x}", x=jnp.allclose( macros_H[:,2],vx) )
             jax.debug.print("T: {x}", x=jnp.allclose( macros_H[:,5],T) )
     """
-
-
 
     momentSolu = np.load("Mach1.2.npz")
 
