@@ -127,14 +127,16 @@ The custom statistics are user-defined functions of the velocity vector that can
 
 ```python
 # define a custom statistics function u_x, u_x**2, whose moments are to be computed from the natural parameters (beta_0, beta_1, beta_2).
-cumstom_statistics = lambda u: jnp.array([u[0], u[0]**2])
+custom_statistics = lambda u: jnp.array([u[0], u[0]**2])
 
 # Convert the natural parameters (beta_0, beta_1, beta_2) to the moments of the custom statistics.
-cumstom_statistics_moments = Maxwell.natural_paras_to_custom_moments(beta, domain_para, cumstom_statistics, stats_gauge_paras=() )
+custom_statistics_moments = Maxwell.natural_paras_to_custom_moments(beta, domain_para, custom_statistics, stats_gauge_paras=() )
 ```
 
 This will compute the moments of the custom statistics function $u_x$, $u_x^2$ simutaneously over the sample domain.
 
+
+
 ## Summary
 
-In this guide, we have shown you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution in one dimension. We have also demonstrated how to convert between different representations of the distribution, such as natural parameters, moments, fluid properties, and custom statistics. You can use similar methods for other distribution classes in the module, such as `Moment35_Canonical_Legendre_1D` and `Moment35_Canonical_Legendre_3D`, which implement higher-order moment closures for rarefied gas dynamics. For more details and examples, please refer to the documentation and source code of MomentGauge.Models.
+In this guide, we have shown you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution in one dimension. We have also demonstrated how to convert between different representations of the distribution, such as natural parameters, moments, fluid properties, and custom statistics. You can use similar methods for other distribution classes in the module, such as `Moment35_Canonical_Legendre_1D`, which implement higher-order moment closures for rarefied gas dynamics. For more details and examples, please refer to the documentation and source code of MomentGauge.Models.

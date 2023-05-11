@@ -1,0 +1,84 @@
+:py:mod:`gague_tutorial`
+========================
+
+.. py:module:: gague_tutorial
+
+
+Module Contents
+---------------
+
+.. py:data:: constant
+   
+
+   
+
+.. py:data:: M35G
+   
+
+   
+
+.. py:data:: gauge_para
+   
+
+   
+
+.. py:data:: Maxwell
+   
+
+   
+
+.. py:data:: domain_para
+   
+
+   
+
+.. py:data:: rhoVT
+   
+
+   
+
+.. py:data:: beta_M
+   
+
+   
+
+.. py:data:: moments35
+   
+
+   
+
+.. py:data:: beta35_ini
+   
+
+   
+
+.. py:data:: fp
+   
+
+   
+
+.. py:data:: hermite_gauge_para
+   
+
+   
+
+.. py:data:: moments35_H
+   
+
+   
+
+.. py:data:: beta35_H
+   
+
+   
+
+.. py:data:: fp_H
+   
+
+   
+
+.. py:data:: beta35_ini_H
+   
+
+   
+

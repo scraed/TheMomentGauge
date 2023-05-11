@@ -1,0 +1,228 @@
+# Get Started with Gauge Transformation
+
+Gauge transformation is a technique in physics that allows us to change the non-observable properties of fields (such as potentials) without affecting the observable quantities (such as intensities). This gives us the freedom to choose the most convenient or stable representation of the fields for a given problem.
+
+In this tutorial, we will show you how to use gauge transformation in the context of moment 35 distribution to improve the numerical stability and accelerate optimization.
+
+## Import modules
+
+We will use the following modules in this tutorial:
+
+```python
+import jax.numpy as jnp
+from MomentGauge.Models.Maxwellian import Maxwell_Canonical_Legendre_1D
+from MomentGauge.Models.Moment35 import M35_Gauged_Canonical_Legendre_1D
+```
+
+## Define constants and parameters
+
+We will use a dictionary of constants to store some physical and numerical parameters, such as the mass of the particle, the Boltzmann constant, and some parameters for numerical integration and optimization.
+
+```python
+constant = {"m": 1., "kB": 1.,"n_x": 8, "n_r": 8, "B_x": 16, "B_r": 16 ,
+ "alpha" : 1., "beta" : 0.5, "c": 5e-4, "atol": 5e-6, "rtol":1e-5,
+ "max_iter": 100, "max_back_tracking_iter": 25, "tol": 1e-10, "min_step_size": 1e-6,
+ "reg_hessian": True, "debug" : False }
+```
+
+We will also define some gauge parameters and domain parameters for later use.
+
+```python
+# Specify the gauge parameters (s_r=1, s_x=1, w_x=0) representing no scaling in the radius direction,
+# x direction and no shift of the x direction velocity.
+gauge_para = jnp.array( [ 1.,1.,0. ] )
+
+# Specify the sample domain (a_x, b_x, b_r) of the Gauss_Legendre_Sampler_Polar3D qudrature sampler.
+domain_para = jnp.array([-15,15,15]) 
+```
+
+## Initialize distributions
+
+We will initialize two distributions: a Maxwellian distribution and a moment 35 distribution. Both distributions are equipped with the Gauss_Legendre_Sampler_Polar3D quadrature sampler.
+
+```python
+# Initialize the Maxwellian equiped with the Gauss_Legendre_Sampler_Polar3D qudrature sampler.
+Maxwell = Maxwell_Canonical_Legendre_1D(constant)
+
+# Initialize the moment 35 distribution equiped with the Gauss_Legendre_Sampler_Polar3D qudrature sampler.
+M35G = M35_Gauged_Canonical_Legendre_1D(constant)
+```
+
+## Specify moments of the moment 35 distribution
+
+We will use a Maxwellian distribution to specify the moments of the moment 35 distribution indirectly, because it have too many moments to specify directly. We will first specify the density=1, velocity=15, and temperature=3 of the Maxwellian.
+
+```python
+# Specify the density=1, velocity=15, and temperature=3 of the Maxwellian.
+rhoVT = jnp.array([1,15,3])
+```
+
+Then we will convert these physical quantities to the natural parameters of the Maxwellian distribution using `rhoVT_to_natural_paras` method.
+
+```python
+# Convert the physical quantities (rho, v, T) analytically to the natural parameters (beta_0, beta_1, beta_2),
+# which directly determines the distribution.
+beta_M = Maxwell.rhoVT_to_natural_paras(rhoVT,domain_para)
+```
+
+Finally, we will convert these natural parameters to the moments of the sufficient statistics of the moment 35 distribution using `natural_paras_to_custom_moments` method.
+
+```python
+# Convert the Maxwellian's natural parameters (beta_0, beta_1, beta_2) to the moments of the sufficient statistics
+# of the moment 35 distribution.
+moments35 = Maxwell.natural_paras_to_custom_moments(beta_M, domain_para, M35G.suff_statistics, stats_gauge_paras=(gauge_para,) )
+
+print("moments35:", moments35)
+```
+
+The output should be:
+
+```bash
+moments35: [4.9999878e-01 6.8089948e+00 6.5598381e+01 9.9999815e-01 5.1602856e+02
+ 3.5141477e+03 1.9999968e+00 1.3617998e+01 1.3119684e+02]
+```
+
+## Optimize natural parameters of the moment 35 distribution
+
+We will use the `moments_to_natural_paras` method to optimize the natural parameters of the moment 35 distribution to match the moments of the sufficient statistics that we specified earlier.
+
+```python
+# Initialize the natural parameters of the moment 35 distribution.
+beta35_ini = jnp.array( [1.,0,0,0,0,0,0,0,0] )
+
+# Optimize the natural parameters of the moment 35 distribution to match the moments of the sufficient statistics
+# of the moment 35 distribution.
+beta35, optinfo = M35G.moments_to_natural_paras(beta35_ini,moments35,gauge_para, domain_para )
+
+print("beta35:", beta35)
+```
+
+The output should be:
+
+```bash
+beta35: [ 4.9999878e-01 3.1676404e+00 8.1504256e-02 -3.3383921e-01
+ -2.9817097e-02 1.2111965e-03 -1.1751851e-08 7.7165008e-05
+ -4.1523904e-06]
+```
+
+We can also check the optimization information by printing `optinfo`, which contains the number of steps taken by the optimization and the residual of the optimization.
+
+```python
+# The steps taken by the optimization and the residual of the optimization.
+optim_step, optim_residual = optinfo[-2], optinfo[-3]
+
+print("optim_step, optim_residual:", optim_step, optim_residual)
+```
+
+The output should be:
+
+```bash
+optim_step, optim_residual: 42, 6.261403e-12
+```
+
+## Compute fluid properties
+
+We can use the `natural_paras_to_fluid_properties` method to compute the fluid properties (density, flow velocity, temperature, etc.) of the moment 35 distribution from its natural parameters.
+
+```python
+# Compute the fluid properties (density, flow velocity, temperature, ... ) of the moments 35 distribution.
+fp = M35G.natural_paras_to_fluid_properties(beta35, gauge_para, domain_para )
+
+print("fp:", fp)
+```
+
+The output should be:
+
+```bash
+fp: [ 0.4999988 0.4999988 13.618023 0. 0. 2.3633835
+ 1.1816889 -0.6366155 0. 0. 0.31830788 0.
+ 0.31830788 -0.28340116 0. 0. ]
+```
+
+## Perform gauge transformation
+
+We can use the `standard_gauge_para_from_moments` method to compute the standard gauge parameters in the hermite gauge of the moment 35 distribution from its moments.
+
+```python
+# Compute the standard gauge parameters in the hermite gauge of the moment 35 distribution,
+# which have better stability for numerical optimization.
+hermite_gauge_para = M35G.standard_gauge_para_from_moments(moments35, gauge_para)
+
+print("hermite_gauge_para:", hermite_gauge_para)
+```
+
+The output should be:
+
+```bash
+hermite_gauge_para: [ 1.7320513 1.0441166 13.618024 ]
+```
+
+We can use the `moments_gauge_transformation` and `natural_paras_gauge_transformation` methods to transform the moments and natural parameters from one gauge to another.
+
+```python
+# Transform the moments from the gauge (1,1,0) to the hermite gauge.
+# The moments before and after the transformation are equivalent,
+# but the numericals tability of the numerical optimization is improved when tolerance is small.
+
+moments35_H = M35G.moments_gauge_transformation(moments35, hermite_gauge_para, gauge_para, domain_para)
+
+# Transform the natural parameters from the gauge (1,1,0) to the hermite gauge.
+# The parameters before and after the transformation are equivalent,
+# but the numerical stability of the numerical optimization is improved when tolerance is small.
+beta35_H = M35G.natural_paras_gauge_transformation(beta35, hermite_gauge_para, gauge_para, domain_para)
+```
+
+We can also compute the fluid properties in the hermite gauge using the same method as before.
+
+```python
+# Compute the fluid properties (density, flow velocity, temperature, ... ) of the moments 35 distribution
+# in the hermite gauge.
+fp_H = M35G.natural_paras_to_fluid_properties(beta35_H, hermite_gauge_para, domain_para )
+```
+
+We can check that the fluid properties are the same in both gauges by using `jnp.allclose` function.
+
+```python
+# Check the equivalence of the fluid properties computed from the natural parameters in the gauge (1,1,0)
+# and the hermite gauge.
+print("Is fp the same with fp_H? ", jnp.allclose(fp_H,fp, atol=1e-4, rtol=1e-4))
+```
+
+The output should be:
+
+```bash
+Is fp the same with fp_H? True
+```
+
+## Optimize natural parameters again
+
+We can optimize the natural parameters of the moment 35 distribution again in the hermite gauge using the same method as before.
+
+```python
+# Convert the initial value of the natural parameters in the gauge (1,1,0) to the hermite gauge.
+beta35_ini_H = M35G.natural_paras_gauge_transformation(beta35_ini, hermite_gauge_para, gauge_para, domain_para)
+
+# Optimize the natural parameters of the moment 35 distribution again in the hermite gauge.
+beta35_H, optinfo_H = M35G.moments_to_natural_paras(beta35_ini_H,moments35_H,hermite_gauge_para, domain_para )
+```
+
+We can check the optimization information again by printing `optinfo_H`, which contains the number of steps taken by the optimization and the residual of the optimization in the hermite gauge.
+
+```python
+# The steps taken by the optimization and the residual of the optimization in the hermite gauge.
+optim_step_H, optim_residual_H = optinfo_H[-2], optinfo_H[-3]
+
+print("optim_step_H, optim_residual_H:", optim_step_H, optim_residual_H)
+```
+
+The output should be:
+
+```bash
+optim_step_H, optim_residual_H: 23, 4.5959775e-13
+```
+
+We can see that the steps of the optimization in the hermite gauge is about half of the steps in the gauge (1,1,0), which shows that gauge transformation can improve numerical stability and efficiency.
+
+## Conclusion
+
+In this tutorial, we have shown you how to use gauge transformation in MomentGauge package to work with moment 35 distribution. We have demonstrated how to specify moments using a Maxwellian distribution and how to perform gauge transformation using `moments_gauge_transformation` and `natural_paras_gauge_transformation` methods. We have also shown that gauge transformation can improve numerical stability and efficiency of optimization.

@@ -12,6 +12,7 @@ Welcome to MomentGauge's documentation!
    
    About
    getStarted
+   GaugeTransformations
    importanceSampling
    
 

@@ -57,3 +57,13 @@ Module Contents
 
    
 
+.. py:data:: M35G
+   
+
+   
+
+.. py:data:: max35moments
+   
+
+   
+

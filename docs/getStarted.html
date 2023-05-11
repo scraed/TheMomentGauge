@@ -37,7 +37,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Importance Sampling" href="importanceSampling.html" />
+    <link rel="next" title="Get Started with Gauge Transformation" href="GaugeTransformations.html" />
     <link rel="prev" title="About Moment Gauge" href="About.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -99,6 +99,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Getting Started with MomentGauge.Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="GaugeTransformations.html">
+   Get Started with Gauge Transformation
   </a>
  </li>
  <li class="toctree-l1">
@@ -382,6 +387,15 @@
       </a>
      </li>
     </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="autoapi/gague_tutorial/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       gague_tutorial
+      </span>
+     </code>
+    </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="autoapi/started/index.html">
@@ -740,17 +754,17 @@ title="Print to PDF"
 <h2>Custom statistics<a class="headerlink" href="#custom-statistics" title="Permalink to this heading">#</a></h2>
 <p>The custom statistics are user-defined functions of the velocity vector that can be used to compute additional quantities of interest from the distribution function. They are related to the natural parameters by numerical integration. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a custom statistics function u_x, u_x**2, whose moments are to be computed from the natural parameters (beta_0, beta_1, beta_2).</span>
-<span class="n">cumstom_statistics</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">custom_statistics</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
 
 <span class="c1"># Convert the natural parameters (beta_0, beta_1, beta_2) to the moments of the custom statistics.</span>
-<span class="n">cumstom_statistics_moments</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">natural_paras_to_custom_moments</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">,</span> <span class="n">cumstom_statistics</span><span class="p">,</span> <span class="n">stats_gauge_paras</span><span class="o">=</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">custom_statistics_moments</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">natural_paras_to_custom_moments</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">,</span> <span class="n">custom_statistics</span><span class="p">,</span> <span class="n">stats_gauge_paras</span><span class="o">=</span><span class="p">()</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>This will compute the moments of the custom statistics function <span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_x^2\)</span> simutaneously over the sample domain.</p>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
-<p>In this guide, we have shown you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution in one dimension. We have also demonstrated how to convert between different representations of the distribution, such as natural parameters, moments, fluid properties, and custom statistics. You can use similar methods for other distribution classes in the module, such as <code class="docutils literal notranslate"><span class="pre">Moment35_Canonical_Legendre_1D</span></code> and <code class="docutils literal notranslate"><span class="pre">Moment35_Canonical_Legendre_3D</span></code>, which implement higher-order moment closures for rarefied gas dynamics. For more details and examples, please refer to the documentation and source code of MomentGauge.Models.</p>
+<p>In this guide, we have shown you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution in one dimension. We have also demonstrated how to convert between different representations of the distribution, such as natural parameters, moments, fluid properties, and custom statistics. You can use similar methods for other distribution classes in the module, such as <code class="docutils literal notranslate"><span class="pre">Moment35_Canonical_Legendre_1D</span></code>, which implement higher-order moment closures for rarefied gas dynamics. For more details and examples, please refer to the documentation and source code of MomentGauge.Models.</p>
 </section>
 </section>
 
@@ -769,10 +783,10 @@ title="Print to PDF"
             <p class="prev-next-title">About Moment Gauge</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="importanceSampling.html" title="next page">
+    <a class='right-next' id="next-link" href="GaugeTransformations.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Importance Sampling</p>
+        <p class="prev-next-title">Get Started with Gauge Transformation</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

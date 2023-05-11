@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Get Started with Gauge Transformation &#8212; MomentGauge 1.0 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Importance Sampling" href="importanceSampling.html" />
+    <link rel="prev" title="Getting Started with MomentGauge.Models" href="getStarted.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">MomentGauge 1.0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="About.html">
+   About Moment Gauge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getStarted.html">
+   Getting Started with MomentGauge.Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Get Started with Gauge Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="importanceSampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="autoapi/index.html">
+   API Reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="autoapi/MomentGauge/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       MomentGauge
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Estimator/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Estimator
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Estimator/Estimator/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Estimator.Estimator
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Models/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Models
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/ESBGK/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.ESBGK
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/ExpFamilyBase/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.ExpFamilyBase
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/Maxwellian/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Maxwellian
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/Moment35/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Moment35
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/Moment35P2/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Moment35P2
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Optim/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Optim
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Optim/BaseOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.BaseOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Optim/NewtonOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.NewtonOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Optim/SVDNewtonOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.SVDNewtonOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Sampler
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/Base/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.Base
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/CanonicalExpFamilySampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.CanonicalExpFamilySampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/ExponentialFamilySampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.ExponentialFamilySampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/QuadratureSampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.QuadratureSampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/SamplerUtility/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.SamplerUtility
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Statistic/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Statistic
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+      <label for="toctree-checkbox-7">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Statistic/PolyGaugedStatistics/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.PolyGaugedStatistics
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Statistic/PolyStatistics/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.PolyStatistics
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Statistic/SymbolicPolynomials/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.SymbolicPolynomials
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="autoapi/MomentGauge/Test/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Test
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="autoapi/MomentGauge/Utility/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Utility
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="autoapi/gague_tutorial/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       gague_tutorial
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="autoapi/started/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       started
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/GaugeTransformations.md.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-modules">
+   Import modules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#define-constants-and-parameters">
+   Define constants and parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize-distributions">
+   Initialize distributions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specify-moments-of-the-moment-35-distribution">
+   Specify moments of the moment 35 distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimize-natural-parameters-of-the-moment-35-distribution">
+   Optimize natural parameters of the moment 35 distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compute-fluid-properties">
+   Compute fluid properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#perform-gauge-transformation">
+   Perform gauge transformation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimize-natural-parameters-again">
+   Optimize natural parameters again
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Get Started with Gauge Transformation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-modules">
+   Import modules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#define-constants-and-parameters">
+   Define constants and parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize-distributions">
+   Initialize distributions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specify-moments-of-the-moment-35-distribution">
+   Specify moments of the moment 35 distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimize-natural-parameters-of-the-moment-35-distribution">
+   Optimize natural parameters of the moment 35 distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compute-fluid-properties">
+   Compute fluid properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#perform-gauge-transformation">
+   Perform gauge transformation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimize-natural-parameters-again">
+   Optimize natural parameters again
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="get-started-with-gauge-transformation">
+<h1>Get Started with Gauge Transformation<a class="headerlink" href="#get-started-with-gauge-transformation" title="Permalink to this heading">#</a></h1>
+<p>Gauge transformation is a technique in physics that allows us to change the non-observable properties of fields (such as potentials) without affecting the observable quantities (such as intensities). This gives us the freedom to choose the most convenient or stable representation of the fields for a given problem.</p>
+<p>In this tutorial, we will show you how to use gauge transformation in the context of moment 35 distribution to improve the numerical stability and accelerate optimization.</p>
+<section id="import-modules">
+<h2>Import modules<a class="headerlink" href="#import-modules" title="Permalink to this heading">#</a></h2>
+<p>We will use the following modules in this tutorial:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">from</span> <span class="nn">MomentGauge.Models.Maxwellian</span> <span class="kn">import</span> <span class="n">Maxwell_Canonical_Legendre_1D</span>
+<span class="kn">from</span> <span class="nn">MomentGauge.Models.Moment35</span> <span class="kn">import</span> <span class="n">M35_Gauged_Canonical_Legendre_1D</span>
+</pre></div>
+</div>
+</section>
+<section id="define-constants-and-parameters">
+<h2>Define constants and parameters<a class="headerlink" href="#define-constants-and-parameters" title="Permalink to this heading">#</a></h2>
+<p>We will use a dictionary of constants to store some physical and numerical parameters, such as the mass of the particle, the Boltzmann constant, and some parameters for numerical integration and optimization.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constant</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;kB&quot;</span><span class="p">:</span> <span class="mf">1.</span><span class="p">,</span><span class="s2">&quot;n_x&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;n_r&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;B_x&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;B_r&quot;</span><span class="p">:</span> <span class="mi">16</span> <span class="p">,</span>
+ <span class="s2">&quot;alpha&quot;</span> <span class="p">:</span> <span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mf">5e-4</span><span class="p">,</span> <span class="s2">&quot;atol&quot;</span><span class="p">:</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="s2">&quot;rtol&quot;</span><span class="p">:</span><span class="mf">1e-5</span><span class="p">,</span>
+ <span class="s2">&quot;max_iter&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;max_back_tracking_iter&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;tol&quot;</span><span class="p">:</span> <span class="mf">1e-10</span><span class="p">,</span> <span class="s2">&quot;min_step_size&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+ <span class="s2">&quot;reg_hessian&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span> <span class="p">:</span> <span class="kc">False</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>We will also define some gauge parameters and domain parameters for later use.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the gauge parameters (s_r=1, s_x=1, w_x=0) representing no scaling in the radius direction,</span>
+<span class="c1"># x direction and no shift of the x direction velocity.</span>
+<span class="n">gauge_para</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span> <span class="p">]</span> <span class="p">)</span>
+
+<span class="c1"># Specify the sample domain (a_x, b_x, b_r) of the Gauss_Legendre_Sampler_Polar3D qudrature sampler.</span>
+<span class="n">domain_para</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">])</span> 
+</pre></div>
+</div>
+</section>
+<section id="initialize-distributions">
+<h2>Initialize distributions<a class="headerlink" href="#initialize-distributions" title="Permalink to this heading">#</a></h2>
+<p>We will initialize two distributions: a Maxwellian distribution and a moment 35 distribution. Both distributions are equipped with the Gauss_Legendre_Sampler_Polar3D quadrature sampler.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the Maxwellian equiped with the Gauss_Legendre_Sampler_Polar3D qudrature sampler.</span>
+<span class="n">Maxwell</span> <span class="o">=</span> <span class="n">Maxwell_Canonical_Legendre_1D</span><span class="p">(</span><span class="n">constant</span><span class="p">)</span>
+
+<span class="c1"># Initialize the moment 35 distribution equiped with the Gauss_Legendre_Sampler_Polar3D qudrature sampler.</span>
+<span class="n">M35G</span> <span class="o">=</span> <span class="n">M35_Gauged_Canonical_Legendre_1D</span><span class="p">(</span><span class="n">constant</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="specify-moments-of-the-moment-35-distribution">
+<h2>Specify moments of the moment 35 distribution<a class="headerlink" href="#specify-moments-of-the-moment-35-distribution" title="Permalink to this heading">#</a></h2>
+<p>We will use a Maxwellian distribution to specify the moments of the moment 35 distribution indirectly, because it have too many moments to specify directly. We will first specify the density=1, velocity=15, and temperature=3 of the Maxwellian.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the density=1, velocity=15, and temperature=3 of the Maxwellian.</span>
+<span class="n">rhoVT</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Then we will convert these physical quantities to the natural parameters of the Maxwellian distribution using <code class="docutils literal notranslate"><span class="pre">rhoVT_to_natural_paras</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the physical quantities (rho, v, T) analytically to the natural parameters (beta_0, beta_1, beta_2),</span>
+<span class="c1"># which directly determines the distribution.</span>
+<span class="n">beta_M</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">rhoVT_to_natural_paras</span><span class="p">(</span><span class="n">rhoVT</span><span class="p">,</span><span class="n">domain_para</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we will convert these natural parameters to the moments of the sufficient statistics of the moment 35 distribution using <code class="docutils literal notranslate"><span class="pre">natural_paras_to_custom_moments</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the Maxwellian&#39;s natural parameters (beta_0, beta_1, beta_2) to the moments of the sufficient statistics</span>
+<span class="c1"># of the moment 35 distribution.</span>
+<span class="n">moments35</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">natural_paras_to_custom_moments</span><span class="p">(</span><span class="n">beta_M</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">,</span> <span class="n">M35G</span><span class="o">.</span><span class="n">suff_statistics</span><span class="p">,</span> <span class="n">stats_gauge_paras</span><span class="o">=</span><span class="p">(</span><span class="n">gauge_para</span><span class="p">,)</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;moments35:&quot;</span><span class="p">,</span> <span class="n">moments35</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>moments35: <span class="o">[</span><span class="m">4</span>.9999878e-01 <span class="m">6</span>.8089948e+00 <span class="m">6</span>.5598381e+01 <span class="m">9</span>.9999815e-01 <span class="m">5</span>.1602856e+02
+ <span class="m">3</span>.5141477e+03 <span class="m">1</span>.9999968e+00 <span class="m">1</span>.3617998e+01 <span class="m">1</span>.3119684e+02<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="optimize-natural-parameters-of-the-moment-35-distribution">
+<h2>Optimize natural parameters of the moment 35 distribution<a class="headerlink" href="#optimize-natural-parameters-of-the-moment-35-distribution" title="Permalink to this heading">#</a></h2>
+<p>We will use the <code class="docutils literal notranslate"><span class="pre">moments_to_natural_paras</span></code> method to optimize the natural parameters of the moment 35 distribution to match the moments of the sufficient statistics that we specified earlier.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the natural parameters of the moment 35 distribution.</span>
+<span class="n">beta35_ini</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c1"># Optimize the natural parameters of the moment 35 distribution to match the moments of the sufficient statistics</span>
+<span class="c1"># of the moment 35 distribution.</span>
+<span class="n">beta35</span><span class="p">,</span> <span class="n">optinfo</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">moments_to_natural_paras</span><span class="p">(</span><span class="n">beta35_ini</span><span class="p">,</span><span class="n">moments35</span><span class="p">,</span><span class="n">gauge_para</span><span class="p">,</span> <span class="n">domain_para</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;beta35:&quot;</span><span class="p">,</span> <span class="n">beta35</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>beta35: <span class="o">[</span> <span class="m">4</span>.9999878e-01 <span class="m">3</span>.1676404e+00 <span class="m">8</span>.1504256e-02 -3.3383921e-01
+ -2.9817097e-02 <span class="m">1</span>.2111965e-03 -1.1751851e-08 <span class="m">7</span>.7165008e-05
+ -4.1523904e-06<span class="o">]</span>
+</pre></div>
+</div>
+<p>We can also check the optimization information by printing <code class="docutils literal notranslate"><span class="pre">optinfo</span></code>, which contains the number of steps taken by the optimization and the residual of the optimization.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The steps taken by the optimization and the residual of the optimization.</span>
+<span class="n">optim_step</span><span class="p">,</span> <span class="n">optim_residual</span> <span class="o">=</span> <span class="n">optinfo</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">optinfo</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;optim_step, optim_residual:&quot;</span><span class="p">,</span> <span class="n">optim_step</span><span class="p">,</span> <span class="n">optim_residual</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>optim_step, optim_residual: <span class="m">42</span>, <span class="m">6</span>.261403e-12
+</pre></div>
+</div>
+</section>
+<section id="compute-fluid-properties">
+<h2>Compute fluid properties<a class="headerlink" href="#compute-fluid-properties" title="Permalink to this heading">#</a></h2>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">natural_paras_to_fluid_properties</span></code> method to compute the fluid properties (density, flow velocity, temperature, etc.) of the moment 35 distribution from its natural parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the fluid properties (density, flow velocity, temperature, ... ) of the moments 35 distribution.</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">natural_paras_to_fluid_properties</span><span class="p">(</span><span class="n">beta35</span><span class="p">,</span> <span class="n">gauge_para</span><span class="p">,</span> <span class="n">domain_para</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fp:&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fp: <span class="o">[</span> <span class="m">0</span>.4999988 <span class="m">0</span>.4999988 <span class="m">13</span>.618023 <span class="m">0</span>. <span class="m">0</span>. <span class="m">2</span>.3633835
+ <span class="m">1</span>.1816889 -0.6366155 <span class="m">0</span>. <span class="m">0</span>. <span class="m">0</span>.31830788 <span class="m">0</span>.
+ <span class="m">0</span>.31830788 -0.28340116 <span class="m">0</span>. <span class="m">0</span>. <span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="perform-gauge-transformation">
+<h2>Perform gauge transformation<a class="headerlink" href="#perform-gauge-transformation" title="Permalink to this heading">#</a></h2>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">standard_gauge_para_from_moments</span></code> method to compute the standard gauge parameters in the hermite gauge of the moment 35 distribution from its moments.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the standard gauge parameters in the hermite gauge of the moment 35 distribution,</span>
+<span class="c1"># which have better stability for numerical optimization.</span>
+<span class="n">hermite_gauge_para</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">standard_gauge_para_from_moments</span><span class="p">(</span><span class="n">moments35</span><span class="p">,</span> <span class="n">gauge_para</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hermite_gauge_para:&quot;</span><span class="p">,</span> <span class="n">hermite_gauge_para</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hermite_gauge_para: <span class="o">[</span> <span class="m">1</span>.7320513 <span class="m">1</span>.0441166 <span class="m">13</span>.618024 <span class="o">]</span>
+</pre></div>
+</div>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">moments_gauge_transformation</span></code> and <code class="docutils literal notranslate"><span class="pre">natural_paras_gauge_transformation</span></code> methods to transform the moments and natural parameters from one gauge to another.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transform the moments from the gauge (1,1,0) to the hermite gauge.</span>
+<span class="c1"># The moments before and after the transformation are equivalent,</span>
+<span class="c1"># but the numericals tability of the numerical optimization is improved when tolerance is small.</span>
+
+<span class="n">moments35_H</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">moments_gauge_transformation</span><span class="p">(</span><span class="n">moments35</span><span class="p">,</span> <span class="n">hermite_gauge_para</span><span class="p">,</span> <span class="n">gauge_para</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">)</span>
+
+<span class="c1"># Transform the natural parameters from the gauge (1,1,0) to the hermite gauge.</span>
+<span class="c1"># The parameters before and after the transformation are equivalent,</span>
+<span class="c1"># but the numerical stability of the numerical optimization is improved when tolerance is small.</span>
+<span class="n">beta35_H</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">natural_paras_gauge_transformation</span><span class="p">(</span><span class="n">beta35</span><span class="p">,</span> <span class="n">hermite_gauge_para</span><span class="p">,</span> <span class="n">gauge_para</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also compute the fluid properties in the hermite gauge using the same method as before.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the fluid properties (density, flow velocity, temperature, ... ) of the moments 35 distribution</span>
+<span class="c1"># in the hermite gauge.</span>
+<span class="n">fp_H</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">natural_paras_to_fluid_properties</span><span class="p">(</span><span class="n">beta35_H</span><span class="p">,</span> <span class="n">hermite_gauge_para</span><span class="p">,</span> <span class="n">domain_para</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>We can check that the fluid properties are the same in both gauges by using <code class="docutils literal notranslate"><span class="pre">jnp.allclose</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the equivalence of the fluid properties computed from the natural parameters in the gauge (1,1,0)</span>
+<span class="c1"># and the hermite gauge.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is fp the same with fp_H? &quot;</span><span class="p">,</span> <span class="n">jnp</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">fp_H</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Is fp the same with fp_H? True
+</pre></div>
+</div>
+</section>
+<section id="optimize-natural-parameters-again">
+<h2>Optimize natural parameters again<a class="headerlink" href="#optimize-natural-parameters-again" title="Permalink to this heading">#</a></h2>
+<p>We can optimize the natural parameters of the moment 35 distribution again in the hermite gauge using the same method as before.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the initial value of the natural parameters in the gauge (1,1,0) to the hermite gauge.</span>
+<span class="n">beta35_ini_H</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">natural_paras_gauge_transformation</span><span class="p">(</span><span class="n">beta35_ini</span><span class="p">,</span> <span class="n">hermite_gauge_para</span><span class="p">,</span> <span class="n">gauge_para</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">)</span>
+
+<span class="c1"># Optimize the natural parameters of the moment 35 distribution again in the hermite gauge.</span>
+<span class="n">beta35_H</span><span class="p">,</span> <span class="n">optinfo_H</span> <span class="o">=</span> <span class="n">M35G</span><span class="o">.</span><span class="n">moments_to_natural_paras</span><span class="p">(</span><span class="n">beta35_ini_H</span><span class="p">,</span><span class="n">moments35_H</span><span class="p">,</span><span class="n">hermite_gauge_para</span><span class="p">,</span> <span class="n">domain_para</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>We can check the optimization information again by printing <code class="docutils literal notranslate"><span class="pre">optinfo_H</span></code>, which contains the number of steps taken by the optimization and the residual of the optimization in the hermite gauge.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The steps taken by the optimization and the residual of the optimization in the hermite gauge.</span>
+<span class="n">optim_step_H</span><span class="p">,</span> <span class="n">optim_residual_H</span> <span class="o">=</span> <span class="n">optinfo_H</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">optinfo_H</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;optim_step_H, optim_residual_H:&quot;</span><span class="p">,</span> <span class="n">optim_step_H</span><span class="p">,</span> <span class="n">optim_residual_H</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>optim_step_H, optim_residual_H: <span class="m">23</span>, <span class="m">4</span>.5959775e-13
+</pre></div>
+</div>
+<p>We can see that the steps of the optimization in the hermite gauge is about half of the steps in the gauge (1,1,0), which shows that gauge transformation can improve numerical stability and efficiency.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>In this tutorial, we have shown you how to use gauge transformation in MomentGauge package to work with moment 35 distribution. We have demonstrated how to specify moments using a Maxwellian distribution and how to perform gauge transformation using <code class="docutils literal notranslate"><span class="pre">moments_gauge_transformation</span></code> and <code class="docutils literal notranslate"><span class="pre">natural_paras_gauge_transformation</span></code> methods. We have also shown that gauge transformation can improve numerical stability and efficiency of optimization.</p>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="getStarted.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Getting Started with MomentGauge.Models</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="importanceSampling.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Importance Sampling</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Candi Zheng<br/>
+  
+      &copy; Copyright 2023, Candi Zheng.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
