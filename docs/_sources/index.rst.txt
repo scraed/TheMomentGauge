@@ -11,6 +11,7 @@ Welcome to MomentGauge's documentation!
    :caption: Contents:
    
    About
+   getStarted
    importanceSampling
    
 

@@ -274,12 +274,12 @@ Attributes
 
        \begin{equation}
        \begin{split}
-       f_0(\mathbf{u}) &= \exp\left( \beta_0 \phi_0(\mathbf{u}) + \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u} ) \right)\\
+       f_0(\mathbf{u}) &= \beta_0 \exp\left( \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u} )  - \log Z \right)\\
                &= \frac{\rho}{m} \exp\left( \frac{m  v_x}{k_B T}\phi_1(\mathbf{u}) -\frac{m}{2 k_B T} \phi_2(\mathbf{u}) -  \left(\frac{m v_x^2}{2k_B T}+ \log \left(\frac{2\pi  k_B T}{m}\right)^{\frac{3}{2}}\right) \right),
        \end{split}
        \end{equation}
 
-   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, and
+   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, :math:`Z` is the partition function, and
 
        :math:`\phi_0` (**u** ) = 1.
 
@@ -853,11 +853,11 @@ Attributes
 
        \begin{equation}
        \begin{split}
-       f_0(\mathbf{u}) &= \exp\left( \beta_0 \phi_0(\mathbf{u},s, w_x) + \beta_1 \phi_1(\mathbf{u},s, w_x) + \beta_2 \phi_2(\mathbf{u} ,s, w_x) \right)\\
+       f_0(\mathbf{u}) &= \beta_0 \exp\left(  \beta_1 \phi_1(\mathbf{u},s, w_x) + \beta_2 \phi_2(\mathbf{u} ,s, w_x) - \log Z(s, w_x) \right)\\
        \end{split}
        \end{equation}
 
-   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, and
+   in which :math:`\rho` is the number density, :math:`m` is the molecule velocity, :math:`v_x` is the flow velocity at the x direction, :math:`T` is the temperature, :math:`Z(s, w_x)` is the partition function, and
 
        Specifically,
 

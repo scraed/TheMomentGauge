@@ -33,7 +33,7 @@ Attributes
    Bases: :py:obj:`MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel`
 
    
-   The 1D Maxwell distribution.
+   The 1D Elliptic Statistical distribution.
 
    .. math::
        :nowrap:
@@ -269,7 +269,7 @@ Attributes
    Bases: :py:obj:`ESBGK_Legendre_1D`, :py:obj:`MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel`
 
    
-   The 1D Maxwell distribution.
+   The 1D Elliptic Statistical distribution.
 
    .. math::
        :nowrap:
@@ -505,7 +505,7 @@ Attributes
    Bases: :py:obj:`MomentGauge.Models.ExpFamilyBase.GaugedExpFamilyModel`, :py:obj:`MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel`
 
    
-   The 1D Maxwell distribution with Gauge transformation.
+   The 1D Elliptic Statistical distribution with Gauge transformation.
 
    .. math::
        :nowrap:
@@ -843,7 +843,7 @@ Attributes
    Bases: :py:obj:`ESBGK_Gauged_Legendre_1D`, :py:obj:`MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel`
 
    
-   The 1D Maxwell distribution with Gauge transformation.
+   The 1D Elliptic Statistical distribution with Gauge transformation.
 
    .. math::
        :nowrap:

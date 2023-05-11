@@ -1,0 +1,59 @@
+:py:mod:`started`
+=================
+
+.. py:module:: started
+
+
+Module Contents
+---------------
+
+.. py:data:: constant
+   
+
+   
+
+.. py:data:: Maxwell
+   
+
+   
+
+.. py:data:: domain_para
+   
+
+   
+
+.. py:data:: rhoVT
+   
+
+   
+
+.. py:data:: beta
+   
+
+   
+
+.. py:data:: moments
+   
+
+   
+
+.. py:data:: beta_ini
+   
+
+   
+
+.. py:data:: cumstom_statistics
+   
+
+   
+
+.. py:data:: cumstom_statistics_moments
+   
+
+   
+
+.. py:data:: fp
+   
+
+   
+

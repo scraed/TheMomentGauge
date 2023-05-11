@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Getting Started with MomentGauge.Models &#8212; MomentGauge 1.0 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Importance Sampling" href="importanceSampling.html" />
+    <link rel="prev" title="About Moment Gauge" href="About.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">MomentGauge 1.0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="About.html">
+   About Moment Gauge
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Getting Started with MomentGauge.Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="importanceSampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="autoapi/index.html">
+   API Reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="autoapi/MomentGauge/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       MomentGauge
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Estimator/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Estimator
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Estimator/Estimator/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Estimator.Estimator
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Models/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Models
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/ESBGK/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.ESBGK
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/ExpFamilyBase/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.ExpFamilyBase
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/Maxwellian/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Maxwellian
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/Moment35/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Moment35
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Models/Moment35P2/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Models.Moment35P2
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Optim/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Optim
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Optim/BaseOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.BaseOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Optim/NewtonOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.NewtonOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Optim/SVDNewtonOptimizer/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Optim.SVDNewtonOptimizer
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Sampler
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/Base/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.Base
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/CanonicalExpFamilySampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.CanonicalExpFamilySampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/ExponentialFamilySampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.ExponentialFamilySampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/QuadratureSampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.QuadratureSampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Sampler/SamplerUtility/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Sampler.SamplerUtility
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="autoapi/MomentGauge/Statistic/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Statistic
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+      <label for="toctree-checkbox-7">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Statistic/PolyGaugedStatistics/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.PolyGaugedStatistics
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Statistic/PolyStatistics/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.PolyStatistics
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="autoapi/MomentGauge/Statistic/SymbolicPolynomials/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           MomentGauge.Statistic.SymbolicPolynomials
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="autoapi/MomentGauge/Test/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Test
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="autoapi/MomentGauge/Utility/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         MomentGauge.Utility
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="autoapi/started/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       started
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/getStarted.md.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#importing-the-module-and-setting-up-constants">
+   Importing the module and setting up constants
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initializing-the-distribution-class">
+   Initializing the distribution class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specifying-the-domain-and-the-natural-parameters">
+   Specifying the domain and the natural parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#converting-between-different-representations">
+   Converting between different representations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#moments">
+     Moments
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fluid-properties">
+   Fluid properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#custom-statistics">
+   Custom statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Getting Started with MomentGauge.Models</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#importing-the-module-and-setting-up-constants">
+   Importing the module and setting up constants
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initializing-the-distribution-class">
+   Initializing the distribution class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specifying-the-domain-and-the-natural-parameters">
+   Specifying the domain and the natural parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#converting-between-different-representations">
+   Converting between different representations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#moments">
+     Moments
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fluid-properties">
+   Fluid properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#custom-statistics">
+   Custom statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-momentgauge-models">
+<h1>Getting Started with MomentGauge.Models<a class="headerlink" href="#getting-started-with-momentgauge-models" title="Permalink to this heading">#</a></h1>
+<p>MomentGauge.Models is a module that provides classes for different types of exponential family distributions that can be used to model rarefied gas dynamics and other applications of the maximal entropy moment method. The module also provides methods for converting between different representations of the distributions, such as natural parameters, moments, and fluid properties.</p>
+<p>This submodule contains the classes for defining different exponential family models that can be used with MomentGauge. An exponential family model is a probability distribution that has the form</p>
+<div class="math notranslate nohighlight">
+\[f(u; \beta, g) = \exp(\sum_{i=0}^M \beta_i \phi_i(u, g))\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi_i\)</span> are sufficient statistics, <span class="math notranslate nohighlight">\(\beta\)</span> is the natural parameter of the distribution, <span class="math notranslate nohighlight">\(\phi_0(u, g) = 1\)</span>, and <span class="math notranslate nohighlight">\(g\)</span> is extra gauge parameters that may or may not be requested by the moments <span class="math notranslate nohighlight">\(\phi_i\)</span>.</p>
+<p>The base class for exponential family model is <code class="docutils literal notranslate"><span class="pre">BaseExpFamilyModel</span></code>, which provides methods for computing the sufficient statistics, the natural parameters, the moments, and the fluid properties of a given model. The subclasses of <code class="docutils literal notranslate"><span class="pre">BaseExpFamilyModel</span></code> are <code class="docutils literal notranslate"><span class="pre">CanonicalExpFamilyModel</span></code> and <code class="docutils literal notranslate"><span class="pre">GaugedExpFamilyModel</span></code>, which implement different ways of sampling from the model using canonical forms and gauge transformations, respectively.</p>
+<p>The specific models that inherit from these base classes are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Maxwellian</span></code>: The Maxwellian distribution for one-dimensional flow (1D) with three parameters: density, flow velocity in x direction, and temperature.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESBGK</span></code>: The Elliptic Statistical (ES) Maxwellian distribution for 1D flow with four parameters, allowing one to set the Prandlt number of the BGK collision model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Moment35</span></code>: The the 35-moment distribution for one-dimensional flow with 9 parameters.</p></li>
+</ul>
+<p>In this guide, we will show you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution for one dimension flow. We will also demonstrate how to compute custom statistics and moments from the distribution.</p>
+<p>The Maxwell distribution for one dimension flow in the Canonical form is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(\mathbf{u}) = \beta_0 \exp( \phi_0(\mathbf{u}) + \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u}) - \log Z )\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta_0, \beta_1, \beta_2\)</span> are the natural parameters of the distribution and</p>
+<div class="math notranslate nohighlight">
+\[\phi_0(\mathbf{u}) = 1.\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_1(\mathbf{u}) = u_x\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_2(\mathbf{u}) = u_x^2 + u_y^2 + u_z^2.\]</div>
+<p>are the sufficient statistics of the distribution.</p>
+<p>In addition, the partition function <span class="math notranslate nohighlight">\(Z\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[Z = \int \exp( \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u})) d \mathbf{u}, \]</div>
+<p>which acts as the normalizer of the distribution.</p>
+<section id="importing-the-module-and-setting-up-constants">
+<h2>Importing the module and setting up constants<a class="headerlink" href="#importing-the-module-and-setting-up-constants" title="Permalink to this heading">#</a></h2>
+<p>To use MomentGauge.Models, you need to import the module and its dependencies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">from</span> <span class="nn">MomentGauge.Models.Maxwellian</span> <span class="kn">import</span> <span class="n">Maxwell_Canonical_Legendre_1D</span>
+</pre></div>
+</div>
+<p>You also need to prepare a dictionary of constants that will be used as an argument for the distribution class. The dictionary should contain the mass of the particle, the Boltzmann constant, and some parameters for numerical integration and optimization. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constant</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;kB&quot;</span><span class="p">:</span> <span class="mf">1.</span><span class="p">,</span><span class="s2">&quot;n_x&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;n_r&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;B_x&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;B_r&quot;</span><span class="p">:</span> <span class="mi">16</span> <span class="p">,</span>
+ <span class="s2">&quot;alpha&quot;</span> <span class="p">:</span> <span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mf">5e-4</span><span class="p">,</span> <span class="s2">&quot;atol&quot;</span><span class="p">:</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="s2">&quot;rtol&quot;</span><span class="p">:</span><span class="mf">1e-5</span><span class="p">,</span>
+ <span class="s2">&quot;max_iter&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;max_back_tracking_iter&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;tol&quot;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="s2">&quot;min_step_size&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+ <span class="s2">&quot;reg_hessian&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span> <span class="p">:</span> <span class="kc">False</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Detaied description of the parameters in this dictionary could be found in the API Reference.</p>
+</section>
+<section id="initializing-the-distribution-class">
+<h2>Initializing the distribution class<a class="headerlink" href="#initializing-the-distribution-class" title="Permalink to this heading">#</a></h2>
+<p>To create a Maxwellian distribution for 1D flow, you need to initialize the <code class="docutils literal notranslate"><span class="pre">Maxwell_Canonical_Legendre_1D</span></code> class with the constant dictionary as an argument. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Maxwell</span> <span class="o">=</span> <span class="n">Maxwell_Canonical_Legendre_1D</span><span class="p">(</span><span class="n">constant</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will create an instance of the class that can be used to perform various operations on the distribution.</p>
+</section>
+<section id="specifying-the-domain-and-the-natural-parameters">
+<h2>Specifying the domain and the natural parameters<a class="headerlink" href="#specifying-the-domain-and-the-natural-parameters" title="Permalink to this heading">#</a></h2>
+<p>To work with the distribution, you need to specify the sample domain and the natural parameters of the distribution. For Maxwell_Canonical_Legendre_1D, the sample domain is a tuple of three numbers that define the lower and upper bounds of the velocity space in x-direction and the radius of the polar coordinate system. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">domain_para</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">])</span> 
+</pre></div>
+</div>
+<p>The natural parameters are a tuple of three numbers that directly determine the distribution. They are related to the density, velocity, and temperature of the gas by analytical formulas. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rhoVT</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">rhoVT_to_natural_paras</span><span class="p">(</span><span class="n">rhoVT</span><span class="p">,</span><span class="n">domain_para</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will convert the physical quantities (rho, v, T) to the natural parameters (beta_0, beta_1, beta_2).</p>
+</section>
+<section id="converting-between-different-representations">
+<h2>Converting between different representations<a class="headerlink" href="#converting-between-different-representations" title="Permalink to this heading">#</a></h2>
+<p>The distribution class provides methods for converting between different representations of the distribution, such as natrual parameters and moments of sufficient statistics.</p>
+<section id="moments">
+<h3>Moments<a class="headerlink" href="#moments" title="Permalink to this heading">#</a></h3>
+<p>The moments are a tuple of three numbers that represent the integrals of the sufficient statistics (<span class="math notranslate nohighlight">\(\phi_0, \phi_1, \phi_2\)</span>) over the sample domain and are defined as:</p>
+<div class="math notranslate nohighlight">
+\[M_i =  \int \phi_i(\mathbf{u}) f(\mathbf{u}) d \mathbf{u}, \]</div>
+<p>They are related to the natural parameters (<span class="math notranslate nohighlight">\(\beta_0, \beta_1, \beta_2\)</span>). For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">moments</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">natural_paras_to_moments</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">domain_para</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>This will convert the natural parameters (<span class="math notranslate nohighlight">\(\beta_0, \beta_1, \beta_2\)</span>) to the moments <span class="math notranslate nohighlight">\(M_i\)</span> of the sufficient statistics ( <span class="math notranslate nohighlight">\(\phi_0, \phi_1, \phi_2\)</span> ).</p>
+<p>Conversely, you can also convert moments to natural parameters by numerical optimization. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">beta_ini</span> <span class="o">=</span> <span class="n">beta</span><span class="o">*</span><span class="mf">0.9</span>
+<span class="n">beta_opt</span><span class="p">,</span> <span class="n">opt_info</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">moments_to_natural_paras</span><span class="p">(</span><span class="n">beta_ini</span><span class="p">,</span> <span class="n">moments</span><span class="p">,</span> <span class="n">domain_para</span> <span class="p">)</span> 
+</pre></div>
+</div>
+<p>This will use an initial guess <code class="docutils literal notranslate"><span class="pre">beta_ini</span></code> and optimize the natural parameters to match the given moments.</p>
+</section>
+</section>
+<section id="fluid-properties">
+<h2>Fluid properties<a class="headerlink" href="#fluid-properties" title="Permalink to this heading">#</a></h2>
+<p>The fluid properties are a tuple of sixteen numbers that represent various physical quantities of the gas derived from the distribution function. They include density, velocity components in x-, y-, and z-directions; temperature; pressure; stress components in xx-, xy-, xz-, yy-, yz-, and zz-directions; and heat flux components in x-, y-, and z-directions. They are related to the natural parameters by analytical formulas. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fp</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">natural_paras_to_fluid_properties</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span><span class="n">domain_para</span><span class="p">)</span>
+<span class="n">rho</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">v_x</span><span class="p">,</span> <span class="n">v_y</span><span class="p">,</span> <span class="n">v_z</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">sigma_xx</span><span class="p">,</span> <span class="n">sigma_xy</span><span class="p">,</span> <span class="n">sigma_xz</span><span class="p">,</span> <span class="n">sigma_yy</span><span class="p">,</span> <span class="n">sigma_yz</span><span class="p">,</span> <span class="n">sigma_zz</span><span class="p">,</span> <span class="n">q_x</span><span class="p">,</span> <span class="n">q_y</span><span class="p">,</span> <span class="n">q_z</span> <span class="o">=</span> <span class="n">fp</span>
+</pre></div>
+</div>
+<p>This will convert the natural parameters (beta_0, beta_1, beta_2) to the fluid properties (rho, v_x, T, etc.).</p>
+</section>
+<section id="custom-statistics">
+<h2>Custom statistics<a class="headerlink" href="#custom-statistics" title="Permalink to this heading">#</a></h2>
+<p>The custom statistics are user-defined functions of the velocity vector that can be used to compute additional quantities of interest from the distribution function. They are related to the natural parameters by numerical integration. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a custom statistics function u_x, u_x**2, whose moments are to be computed from the natural parameters (beta_0, beta_1, beta_2).</span>
+<span class="n">cumstom_statistics</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># Convert the natural parameters (beta_0, beta_1, beta_2) to the moments of the custom statistics.</span>
+<span class="n">cumstom_statistics_moments</span> <span class="o">=</span> <span class="n">Maxwell</span><span class="o">.</span><span class="n">natural_paras_to_custom_moments</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">domain_para</span><span class="p">,</span> <span class="n">cumstom_statistics</span><span class="p">,</span> <span class="n">stats_gauge_paras</span><span class="o">=</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>This will compute the moments of the custom statistics function <span class="math notranslate nohighlight">\(u_x\)</span>, <span class="math notranslate nohighlight">\(u_x^2\)</span> simutaneously over the sample domain.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>In this guide, we have shown you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution in one dimension. We have also demonstrated how to convert between different representations of the distribution, such as natural parameters, moments, fluid properties, and custom statistics. You can use similar methods for other distribution classes in the module, such as <code class="docutils literal notranslate"><span class="pre">Moment35_Canonical_Legendre_1D</span></code> and <code class="docutils literal notranslate"><span class="pre">Moment35_Canonical_Legendre_3D</span></code>, which implement higher-order moment closures for rarefied gas dynamics. For more details and examples, please refer to the documentation and source code of MomentGauge.Models.</p>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="About.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">About Moment Gauge</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="importanceSampling.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Importance Sampling</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Candi Zheng<br/>
+  
+      &copy; Copyright 2023, Candi Zheng.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

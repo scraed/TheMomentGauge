@@ -1,122 +1,140 @@
-# Get started
+# Getting Started with MomentGauge.Models
 
-This is a short step-by-step tutorial to get started with the Sphinx Book Theme.
+MomentGauge.Models is a module that provides classes for different types of exponential family distributions that can be used to model rarefied gas dynamics and other applications of the maximal entropy moment method. The module also provides methods for converting between different representations of the distributions, such as natural parameters, moments, and fluid properties.
 
-:::{note}
-This documentation and the examples below are written with MyST Markdown, a form
-of markdown that works with Sphinx. For more information about MyST markdown, and
-to use MyST markdown with your Sphinx website,
-see [the MyST-parser documentation](https://myst-parser.readthedocs.io/)
-:::
+This submodule contains the classes for defining different exponential family models that can be used with MomentGauge. An exponential family model is a probability distribution that has the form
 
-## Prerequisites
+$$f(u; \beta, g) = \exp(\sum_{i=0}^M \beta_i \phi_i(u, g))$$
 
-You should be relatively familiar with [the Sphinx ecosystem](http://www.sphinx-doc.org/), and have it installed locally on your computer.
+where $\phi_i$ are sufficient statistics, $\beta$ is the natural parameter of the distribution, $\phi_0(u, g) = 1$, and $g$ is extra gauge parameters that may or may not be requested by the moments $\phi_i$.
 
-:::{note}
-If you don't already have a Sphinx site ready to customize, you can create one with:
+The base class for exponential family model is `BaseExpFamilyModel`, which provides methods for computing the sufficient statistics, the natural parameters, the moments, and the fluid properties of a given model. The subclasses of `BaseExpFamilyModel` are `CanonicalExpFamilyModel` and `GaugedExpFamilyModel`, which implement different ways of sampling from the model using canonical forms and gauge transformations, respectively.
 
-```bash
-sphinx-quickstart
-```
-:::
+The specific models that inherit from these base classes are:
 
-## Install and activate the theme
+- `Maxwellian`: The Maxwellian distribution for one-dimensional flow (1D) with three parameters: density, flow velocity in x direction, and temperature.
+- `ESBGK`: The Elliptic Statistical (ES) Maxwellian distribution for 1D flow with four parameters, allowing one to set the Prandlt number of the BGK collision model.
+- `Moment35`: The the 35-moment distribution for one-dimensional flow with 9 parameters.
 
-First install `sphinx-book-theme` with `pip`:
+In this guide, we will show you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution for one dimension flow. We will also demonstrate how to compute custom statistics and moments from the distribution.
 
-```
-pip install sphinx-book-theme
-```
+The Maxwell distribution for one dimension flow in the Canonical form is defined as:
 
-then, activate the theme in your Sphinx configuration (`conf.py`):
+$$f(\mathbf{u}) = \beta_0 \exp( \phi_0(\mathbf{u}) + \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u}) - \log Z )$$
 
-```
-...
-html_theme = "sphinx_book_theme"
-...
-```
+where $\beta_0, \beta_1, \beta_2$ are the natural parameters of the distribution and
 
-This will activate the Sphinx Book Theme for your documentation.
+$$\phi_0(\mathbf{u}) = 1.$$
+$$\phi_1(\mathbf{u}) = u_x$$
+$$\phi_2(\mathbf{u}) = u_x^2 + u_y^2 + u_z^2.$$
 
-:::{note}
-You may need to comment-out your `html_theme_options` configuration depending on your previous theme.
-:::
+are the sufficient statistics of the distribution. 
 
-## Add a source repository button to your theme
+In addition, the partition function $Z$ is defined as 
 
-There are several ways that you can customize the Sphinx Book Theme.
-For this tutorial, we'll add a pointer to a GitHub repository for our theme.
+$$Z = \int \exp( \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u})) d \mathbf{u}, $$
 
-To add a button that links to the repository for your documentation, add the following configuration in `conf.py`.
+which acts as the normalizer of the distribution.
+
+## Importing the module and setting up constants
+
+To use MomentGauge.Models, you need to import the module and its dependencies:
 
 ```python
-html_theme_options = {
-    ...
-    "repository_url": "https://github.com/{your-docs-url}",
-    "use_repository_button": True,
-    ...
-}
+import jax.numpy as jnp
+from MomentGauge.Models.Maxwellian import Maxwell_Canonical_Legendre_1D
 ```
 
-When you build your documentation, your header should now include a small GitHub logo that has a link to the repository.
-
-
-:::{seealso}
-See [](source-files:repository) for more information.
-:::
-
-## Customize your left sidebar
-
-There are a few major areas of the page that you can customize with the book theme.
-The most common is the **primary sidebar** (by default, on the left of the page).
-
-Sidebar elements are defined as HTML templates by Sphinx, Sphinx extensions, and the current theme.
-You may specify which pages should contain which sidebar elements using the `html_sidebars` configuration.
-We'll skip this step in this tutorial, but if you'd like to learn more, see [](sidebar-primary:items).
-
-Let's **customize the logo of our site**.
-To do so, we'll edit the `html_logo` and `html_title` configuration options.
-
-To add a site logo, follow these steps:
-
-1. Put an image in your documentation's root (e.g., `myimage.png`).
-2. Add a line to your `conf.py` file that looks like this:
-
-   ```python
-   html_logo = "path/to/myimage.png"
-   ```
-
-   Where the path is relative to your `conf.py` file.
-
-Next we'll **customize the title of the site**.
-To do so, add a line to your `conf.py` file that looks like this:
+You also need to prepare a dictionary of constants that will be used as an argument for the distribution class. The dictionary should contain the mass of the particle, the Boltzmann constant, and some parameters for numerical integration and optimization. For example:
 
 ```python
-html_title = "My site title"
+constant = {"m": 1., "kB": 1.,"n_x": 8, "n_r": 8, "B_x": 16, "B_r": 16 ,
+ "alpha" : 1., "beta" : 0.5, "c": 5e-4, "atol": 5e-6, "rtol":1e-5,
+ "max_iter": 100, "max_back_tracking_iter": 25, "tol": 1e-8, "min_step_size": 1e-6,
+ "reg_hessian": True, "debug" : False }
 ```
 
-This title will now be placed underneath the logo.
+Detaied description of the parameters in this dictionary could be found in the API Reference.
 
-## Add some margin content to a page
+## Initializing the distribution class
 
-There are a few special kinds of content that this theme supports, largely inspired by [the Tufte CSS theme styles](https://edwardtufte.github.io/tufte-css/).
-One kind of content is **margin content**.
-This allows you to "pop out" content to the side of the page, in the margins.
-Add some margin content to a page by adding the following directive (written with [MyST Markdown](https://myst-parser.readthedocs.io)).
+To create a Maxwellian distribution for 1D flow, you need to initialize the `Maxwell_Canonical_Legendre_1D` class with the constant dictionary as an argument. For example:
 
-```{margin} Look, some margin content!
-On wider screens, this content will pop out to the side!
+```python
+Maxwell = Maxwell_Canonical_Legendre_1D(constant)
 ```
 
-````md
-```{margin} Look, some margin content!
-On wider screens, this content will pop out to the side!
+This will create an instance of the class that can be used to perform various operations on the distribution.
+
+## Specifying the domain and the natural parameters
+
+To work with the distribution, you need to specify the sample domain and the natural parameters of the distribution. For Maxwell_Canonical_Legendre_1D, the sample domain is a tuple of three numbers that define the lower and upper bounds of the velocity space in x-direction and the radius of the polar coordinate system. For example:
+
+```python
+domain_para = jnp.array([-15,15,15]) 
 ```
-````
 
-On wide screens, margin content will pop out to the side of the page and allow content underneath it to move upwards.
-This allows you to provide extra information without interrupting the flow of information.
+The natural parameters are a tuple of three numbers that directly determine the distribution. They are related to the density, velocity, and temperature of the gas by analytical formulas. For example:
 
-There are many other things that you can do with the Sphinx Book Theme.
-Now that you've gotten a start, check out the other sections to the left to learn more about how to use it.
+```python
+rhoVT = jnp.array([1,0,3])
+beta = Maxwell.rhoVT_to_natural_paras(rhoVT,domain_para)
+```
+
+This will convert the physical quantities (rho, v, T) to the natural parameters (beta_0, beta_1, beta_2).
+
+## Converting between different representations
+
+The distribution class provides methods for converting between different representations of the distribution, such as natrual parameters and moments of sufficient statistics.
+
+### Moments
+
+The moments are a tuple of three numbers that represent the integrals of the sufficient statistics ($\phi_0, \phi_1, \phi_2$) over the sample domain and are defined as:
+
+$$M_i =  \int \phi_i(\mathbf{u}) f(\mathbf{u}) d \mathbf{u}, $$
+
+They are related to the natural parameters ($\beta_0, \beta_1, \beta_2$). For example:
+
+```python
+moments = Maxwell.natural_paras_to_moments(beta, domain_para )
+```
+
+This will convert the natural parameters ($\beta_0, \beta_1, \beta_2$) to the moments $M_i$ of the sufficient statistics ( $\phi_0, \phi_1, \phi_2$ ).
+
+Conversely, you can also convert moments to natural parameters by numerical optimization. For example:
+
+```python
+beta_ini = beta*0.9
+beta_opt, opt_info = Maxwell.moments_to_natural_paras(beta_ini, moments, domain_para ) 
+```
+
+This will use an initial guess `beta_ini` and optimize the natural parameters to match the given moments.
+
+## Fluid properties
+
+The fluid properties are a tuple of sixteen numbers that represent various physical quantities of the gas derived from the distribution function. They include density, velocity components in x-, y-, and z-directions; temperature; pressure; stress components in xx-, xy-, xz-, yy-, yz-, and zz-directions; and heat flux components in x-, y-, and z-directions. They are related to the natural parameters by analytical formulas. For example:
+
+```python
+fp = Maxwell.natural_paras_to_fluid_properties(beta,domain_para)
+rho, n, v_x, v_y, v_z, T, p, sigma_xx, sigma_xy, sigma_xz, sigma_yy, sigma_yz, sigma_zz, q_x, q_y, q_z = fp
+```
+
+This will convert the natural parameters (beta_0, beta_1, beta_2) to the fluid properties (rho, v_x, T, etc.).
+
+## Custom statistics
+
+The custom statistics are user-defined functions of the velocity vector that can be used to compute additional quantities of interest from the distribution function. They are related to the natural parameters by numerical integration. For example:
+
+```python
+# define a custom statistics function u_x, u_x**2, whose moments are to be computed from the natural parameters (beta_0, beta_1, beta_2).
+cumstom_statistics = lambda u: jnp.array([u[0], u[0]**2])
+
+# Convert the natural parameters (beta_0, beta_1, beta_2) to the moments of the custom statistics.
+cumstom_statistics_moments = Maxwell.natural_paras_to_custom_moments(beta, domain_para, cumstom_statistics, stats_gauge_paras=() )
+```
+
+This will compute the moments of the custom statistics function $u_x$, $u_x^2$ simutaneously over the sample domain.
+
+## Summary
+
+In this guide, we have shown you how to use MomentGauge.Models to create and manipulate a Maxwellian distribution in one dimension. We have also demonstrated how to convert between different representations of the distribution, such as natural parameters, moments, fluid properties, and custom statistics. You can use similar methods for other distribution classes in the module, such as `Moment35_Canonical_Legendre_1D` and `Moment35_Canonical_Legendre_3D`, which implement higher-order moment closures for rarefied gas dynamics. For more details and examples, please refer to the documentation and source code of MomentGauge.Models.

@@ -91,7 +91,12 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../../../About.html">
-   About MomentGauge
+   About Moment Gauge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../getStarted.html">
+   Getting Started with MomentGauge.Models
   </a>
  </li>
  <li class="toctree-l1">
@@ -375,6 +380,15 @@
       </a>
      </li>
     </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../started/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       started
+      </span>
+     </code>
+    </a>
    </li>
   </ul>
  </li>
@@ -1356,10 +1370,10 @@ q_\alpha &amp;= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf
 <div class="math notranslate nohighlight">
 \begin{equation}
 \begin{split}
-f_0(\mathbf{u}) &amp;= \exp\left( \beta_0 \phi_0(\mathbf{u}) + \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u} ) \right)\\
+f_0(\mathbf{u}) &amp;= \beta_0 \exp\left( \beta_1 \phi_1(\mathbf{u}) + \beta_2 \phi_2(\mathbf{u} )  - \log Z \right)\\
         &amp;= \frac{\rho}{m} \exp\left( \frac{m  v_x}{k_B T}\phi_1(\mathbf{u}) -\frac{m}{2 k_B T} \phi_2(\mathbf{u}) -  \left(\frac{m v_x^2}{2k_B T}+ \log \left(\frac{2\pi  k_B T}{m}\right)^{\frac{3}{2}}\right) \right),
 \end{split}
-\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\rho\)</span> is the number density, <span class="math notranslate nohighlight">\(m\)</span> is the molecule velocity, <span class="math notranslate nohighlight">\(v_x\)</span> is the flow velocity at the x direction, <span class="math notranslate nohighlight">\(T\)</span> is the temperature, and</p>
+\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\rho\)</span> is the number density, <span class="math notranslate nohighlight">\(m\)</span> is the molecule velocity, <span class="math notranslate nohighlight">\(v_x\)</span> is the flow velocity at the x direction, <span class="math notranslate nohighlight">\(T\)</span> is the temperature, <span class="math notranslate nohighlight">\(Z\)</span> is the partition function, and</p>
 <blockquote>
 <div><p><span class="math notranslate nohighlight">\(\phi_0\)</span> (<strong>u</strong> ) = 1.</p>
 <p><span class="math notranslate nohighlight">\(\phi_1\)</span> (<strong>u</strong> ) = <span class="math notranslate nohighlight">\(u_x\)</span></p>
@@ -1964,9 +1978,9 @@ q_\alpha &amp;= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf
 <div class="math notranslate nohighlight">
 \begin{equation}
 \begin{split}
-f_0(\mathbf{u}) &amp;= \exp\left( \beta_0 \phi_0(\mathbf{u},s, w_x) + \beta_1 \phi_1(\mathbf{u},s, w_x) + \beta_2 \phi_2(\mathbf{u} ,s, w_x) \right)\\
+f_0(\mathbf{u}) &amp;= \beta_0 \exp\left(  \beta_1 \phi_1(\mathbf{u},s, w_x) + \beta_2 \phi_2(\mathbf{u} ,s, w_x) - \log Z(s, w_x) \right)\\
 \end{split}
-\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\rho\)</span> is the number density, <span class="math notranslate nohighlight">\(m\)</span> is the molecule velocity, <span class="math notranslate nohighlight">\(v_x\)</span> is the flow velocity at the x direction, <span class="math notranslate nohighlight">\(T\)</span> is the temperature, and</p>
+\end{equation}</div><p>in which <span class="math notranslate nohighlight">\(\rho\)</span> is the number density, <span class="math notranslate nohighlight">\(m\)</span> is the molecule velocity, <span class="math notranslate nohighlight">\(v_x\)</span> is the flow velocity at the x direction, <span class="math notranslate nohighlight">\(T\)</span> is the temperature, <span class="math notranslate nohighlight">\(Z(s, w_x)\)</span> is the partition function, and</p>
 <blockquote>
 <div><p>Specifically,</p>
 <p><span class="math notranslate nohighlight">\(\phi_0\)</span> (<strong>u</strong>, <span class="math notranslate nohighlight">\(s, w_x\)</span> ) = 1.</p>

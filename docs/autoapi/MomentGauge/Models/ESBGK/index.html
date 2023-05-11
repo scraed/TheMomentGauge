@@ -91,7 +91,12 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../../../About.html">
-   About MomentGauge
+   About Moment Gauge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../getStarted.html">
+   Getting Started with MomentGauge.Models
   </a>
  </li>
  <li class="toctree-l1">
@@ -375,6 +380,15 @@
       </a>
      </li>
     </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../started/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       started
+      </span>
+     </code>
+    </a>
    </li>
   </ul>
  </li>
@@ -1072,16 +1086,16 @@ title="Print to PDF"
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#MomentGauge.Models.ESBGK.ESBGK_Legendre_1D" title="MomentGauge.Models.ESBGK.ESBGK_Legendre_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_Legendre_1D</span></code></a></p></td>
-<td><p>The 1D Maxwell distribution.</p></td>
+<td><p>The 1D Elliptic Statistical distribution.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#MomentGauge.Models.ESBGK.ESBGK_Canonical_Legendre_1D" title="MomentGauge.Models.ESBGK.ESBGK_Canonical_Legendre_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_Canonical_Legendre_1D</span></code></a></p></td>
-<td><p>The 1D Maxwell distribution.</p></td>
+<td><p>The 1D Elliptic Statistical distribution.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D" title="MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_Gauged_Legendre_1D</span></code></a></p></td>
-<td><p>The 1D Maxwell distribution with Gauge transformation.</p></td>
+<td><p>The 1D Elliptic Statistical distribution with Gauge transformation.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#MomentGauge.Models.ESBGK.ESBGK_Canonical_Gauged_Legendre_1D" title="MomentGauge.Models.ESBGK.ESBGK_Canonical_Gauged_Legendre_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_Canonical_Gauged_Legendre_1D</span></code></a></p></td>
-<td><p>The 1D Maxwell distribution with Gauge transformation.</p></td>
+<td><p>The 1D Elliptic Statistical distribution with Gauge transformation.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1099,7 +1113,7 @@ title="Print to PDF"
 <dt class="sig sig-object py" id="MomentGauge.Models.ESBGK.ESBGK_Legendre_1D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Models.ESBGK.</span></span><span class="sig-name descname"><span class="pre">ESBGK_Legendre_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Models.ESBGK.ESBGK_Legendre_1D" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ExpFamilyBase/index.html#MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel" title="MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel</span></code></a></p>
-<p>The 1D Maxwell distribution.</p>
+<p>The 1D Elliptic Statistical distribution.</p>
 <div class="math notranslate nohighlight">
 \begin{equation}
 \begin{split}
@@ -1353,7 +1367,7 @@ q_\alpha &amp;= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf
 <dt class="sig sig-object py" id="MomentGauge.Models.ESBGK.ESBGK_Canonical_Legendre_1D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Models.ESBGK.</span></span><span class="sig-name descname"><span class="pre">ESBGK_Canonical_Legendre_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Models.ESBGK.ESBGK_Canonical_Legendre_1D" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#MomentGauge.Models.ESBGK.ESBGK_Legendre_1D" title="MomentGauge.Models.ESBGK.ESBGK_Legendre_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_Legendre_1D</span></code></a>, <a class="reference internal" href="../ExpFamilyBase/index.html#MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel" title="MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel</span></code></a></p>
-<p>The 1D Maxwell distribution.</p>
+<p>The 1D Elliptic Statistical distribution.</p>
 <div class="math notranslate nohighlight">
 \begin{equation}
 \begin{split}
@@ -1607,7 +1621,7 @@ q_\alpha &amp;= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf
 <dt class="sig sig-object py" id="MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Models.ESBGK.</span></span><span class="sig-name descname"><span class="pre">ESBGK_Gauged_Legendre_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ExpFamilyBase/index.html#MomentGauge.Models.ExpFamilyBase.GaugedExpFamilyModel" title="MomentGauge.Models.ExpFamilyBase.GaugedExpFamilyModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MomentGauge.Models.ExpFamilyBase.GaugedExpFamilyModel</span></code></a>, <a class="reference internal" href="../ExpFamilyBase/index.html#MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel" title="MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MomentGauge.Models.ExpFamilyBase.BaseExpFamilyModel</span></code></a></p>
-<p>The 1D Maxwell distribution with Gauge transformation.</p>
+<p>The 1D Elliptic Statistical distribution with Gauge transformation.</p>
 <div class="math notranslate nohighlight">
 \begin{equation}
 \begin{split}
@@ -1956,7 +1970,7 @@ q_\alpha &amp;= \int \frac{m}{2} c_\alpha \mathbf{c}^2 f(\mathbf{u}) d^3 \mathbf
 <dt class="sig sig-object py" id="MomentGauge.Models.ESBGK.ESBGK_Canonical_Gauged_Legendre_1D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MomentGauge.Models.ESBGK.</span></span><span class="sig-name descname"><span class="pre">ESBGK_Canonical_Gauged_Legendre_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MomentGauge.Models.ESBGK.ESBGK_Canonical_Gauged_Legendre_1D" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D" title="MomentGauge.Models.ESBGK.ESBGK_Gauged_Legendre_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESBGK_Gauged_Legendre_1D</span></code></a>, <a class="reference internal" href="../ExpFamilyBase/index.html#MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel" title="MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MomentGauge.Models.ExpFamilyBase.CanonicalExpFamilyModel</span></code></a></p>
-<p>The 1D Maxwell distribution with Gauge transformation.</p>
+<p>The 1D Elliptic Statistical distribution with Gauge transformation.</p>
 <div class="math notranslate nohighlight">
 \begin{equation}
 \begin{split}
