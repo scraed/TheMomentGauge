@@ -119,7 +119,7 @@ fp = Maxwell.natural_paras_to_fluid_properties(beta,domain_para)
 rho, n, v_x, v_y, v_z, T, p, sigma_xx, sigma_xy, sigma_xz, sigma_yy, sigma_yz, sigma_zz, q_x, q_y, q_z = fp
 ```
 
-This will convert the natural parameters (beta_0, beta_1, beta_2) to the fluid properties (rho, v_x, T, etc.).
+This will convert the natural parameters ($\beta_0, \beta_1, \beta_2$) to the fluid properties (rho, v_x, T, etc.).
 
 ## Custom statistics
 

@@ -4,7 +4,7 @@ Moment Gauge is a Python library designed to facilitate the implementation of nu
 
 The library offers a range of features, including sampling, optimization, and moment-computing methods for the exponential family distribution. This distribution family is known for having maximized entropy given a set of moments, and is the foundation of maximal moment method in the study of rarefied gas dynamics and other related fields.
 
-Please note that while Moment Gauge is not fully optimized for speed. However, its flexibility make it a good choice for those looking to quickly implement and test numerical solvers using the maximal entropy moment method.
+Please note that Moment Gauge is not fully optimized for speed. However, its flexibility make it a good choice for those looking to quickly implement and test numerical solvers using the maximal entropy moment method.
 
 Follow the installation guide to get started with Moment Gauge, and refer to the [documentation](https://scraed.github.io/TheMomentGauge/) for detailed information on using the library and its features.
 
