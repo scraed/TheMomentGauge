@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Get Started with Gauge Transformation &#8212; MomentGauge 1.0 documentation</title>
+    <title>Gauge Transformation &#8212; MomentGauge 1.0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -33,6 +33,8 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Importance Sampling" href="importanceSampling.html" />
@@ -101,7 +103,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Get Started with Gauge Transformation
+   Gauge Transformation
   </a>
  </li>
  <li class="toctree-l1">
@@ -592,7 +594,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Get Started with Gauge Transformation</h1>
+                <h1>Gauge Transformation</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -657,8 +659,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="get-started-with-gauge-transformation">
-<h1>Get Started with Gauge Transformation<a class="headerlink" href="#get-started-with-gauge-transformation" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="gauge-transformation">
+<h1>Gauge Transformation<a class="headerlink" href="#gauge-transformation" title="Permalink to this heading">#</a></h1>
 <p>Gauge transformation is a technique in physics that allows us to change the non-observable properties of fields (such as potentials) without affecting the observable quantities (such as intensities). This gives us the freedom to choose the most convenient or stable representation of the fields for a given problem.</p>
 <p>In this tutorial, we will show you how to use gauge transformation in the context of moment 35 distribution to improve the numerical stability and accelerate optimization.</p>
 <section id="import-modules">
@@ -788,6 +790,7 @@ title="Print to PDF"
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hermite_gauge_para: <span class="o">[</span> <span class="m">1</span>.7320513 <span class="m">1</span>.0441166 <span class="m">13</span>.618024 <span class="o">]</span>
 </pre></div>
 </div>
+<p>in which the number <span class="math notranslate nohighlight">\(13.618024\)</span> is the shift in x direction velocity, which should be <span class="math notranslate nohighlight">\(15\)</span> theoratically, matching the prescribed value in rhoVT. The deviation from the theory value indicating that we are dealing with a numerically instabile case.</p>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">moments_gauge_transformation</span></code> and <code class="docutils literal notranslate"><span class="pre">natural_paras_gauge_transformation</span></code> methods to transform the moments and natural parameters from one gauge to another.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transform the moments from the gauge (1,1,0) to the hermite gauge.</span>
 <span class="c1"># The moments before and after the transformation are equivalent,</span>

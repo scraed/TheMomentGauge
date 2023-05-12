@@ -1,4 +1,4 @@
-# Get Started with Gauge Transformation
+# Gauge Transformation
 
 Gauge transformation is a technique in physics that allows us to change the non-observable properties of fields (such as potentials) without affecting the observable quantities (such as intensities). This gives us the freedom to choose the most convenient or stable representation of the fields for a given problem.
 
@@ -156,6 +156,8 @@ The output should be:
 ```bash
 hermite_gauge_para: [ 1.7320513 1.0441166 13.618024 ]
 ```
+
+in which the number $13.618024$ is the shift in x direction velocity, which should be $15$ theoratically, matching the prescribed value in rhoVT. The deviation from the theory value indicating that we are dealing with a numerically instabile case.
 
 We can use the `moments_gauge_transformation` and `natural_paras_gauge_transformation` methods to transform the moments and natural parameters from one gauge to another.
 

@@ -37,7 +37,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Getting Started with MomentGauge.Models" href="getStarted.html" />
+    <link rel="prev" title="Gauge Transformation" href="GaugeTransformations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -98,6 +98,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="getStarted.html">
    Getting Started with MomentGauge.Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="GaugeTransformations.html">
+   Gauge Transformation
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -383,6 +388,15 @@
     </ul>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="autoapi/gague_tutorial/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       gague_tutorial
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="autoapi/started/index.html">
      <code class="xref py py-mod docutils literal notranslate">
       <span class="pre">
@@ -568,26 +582,26 @@ title="Print to PDF"
 <h1>Importance Sampling<a class="headerlink" href="#importance-sampling" title="Permalink to this heading">#</a></h1>
 <p id="my-reference-label">Importance sampling helps construct a complex distribution sampler from primary samplers such as quadrature samplers <code class="xref py py-func docutils literal notranslate"><span class="pre">Sampler.QuadratureSampler()</span></code>.</p>
 <p>Suppose we have a primary sampler for the distribution <span class="math notranslate nohighlight">\(g(\mathbf{u})\)</span> generating <span class="math notranslate nohighlight">\(N\)</span> samples <span class="math notranslate nohighlight">\(\mathbf{u}_{g,i}\)</span>, weights <span class="math notranslate nohighlight">\(w_{g,i}\)</span>, and likelihoods <span class="math notranslate nohighlight">\(g(\mathbf{u}_{g,i})\)</span> such that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0ce120b4-fc69-44d8-ac43-e585c2922290">
-<span class="eqno">(1)<a class="headerlink" href="#equation-0ce120b4-fc69-44d8-ac43-e585c2922290" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-15c668b6-ac4d-42c0-abe8-e823fa6736a0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-15c668b6-ac4d-42c0-abe8-e823fa6736a0" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \int \phi(\mathbf{u}) g(\mathbf{u}) d\mathbf{u} \approx \sum_{i=1}^N w_{g,i} \phi(\mathbf{u}_{g,i}),
 \end{equation}\]</div>
 <p>in which <span class="math notranslate nohighlight">\(\phi\)</span> is an arbitrary function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>. Our target is to generate samples <span class="math notranslate nohighlight">\(\mathbf{u}_{f,i}\)</span> and weights <span class="math notranslate nohighlight">\(w_{f,i}\)</span> for a more complex distribution <span class="math notranslate nohighlight">\(f(\mathbf{u})\)</span> such that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9737cd80-8105-4cfd-9681-ab98b0e3c669">
-<span class="eqno">(2)<a class="headerlink" href="#equation-9737cd80-8105-4cfd-9681-ab98b0e3c669" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d61d2f60-3f1d-472b-b4dc-94613790aa0d">
+<span class="eqno">(2)<a class="headerlink" href="#equation-d61d2f60-3f1d-472b-b4dc-94613790aa0d" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \int \phi(\mathbf{u}) f(\mathbf{u}) d\mathbf{u} \approx \sum_{i=1}^N w_{f,i} \phi(\mathbf{u}_{f,i}).
 \end{equation}\]</div>
 <p>Importance sampling helps us achieve this target utilizing the following observation</p>
-<div class="amsmath math notranslate nohighlight" id="equation-996c9d58-1203-4b73-bc43-b4565589dd7c">
-<span class="eqno">(3)<a class="headerlink" href="#equation-996c9d58-1203-4b73-bc43-b4565589dd7c" title="Permalink to this equation">#</a></span>\[\begin{equation}\label{eq2}
+<div class="amsmath math notranslate nohighlight" id="equation-63ba419f-6dff-4edb-bc57-39e659ca9da0">
+<span class="eqno">(3)<a class="headerlink" href="#equation-63ba419f-6dff-4edb-bc57-39e659ca9da0" title="Permalink to this equation">#</a></span>\[\begin{equation}\label{eq2}
 \begin{split}
 \int\phi(\mathbf{u}) f(\mathbf{u}) d\mathbf{u} &amp;=\int \phi(\mathbf{u}) \frac{f(\mathbf{u})}{g(\mathbf{u})} g(\mathbf{u}) d\mathbf{u}\\
 &amp;\approx \sum_{i=1}^N w_{g,i} \frac{f(\mathbf{u}_{g,i})}{g(\mathbf{u}_{g,i})}  \phi(\mathbf{u}_{g,i}).
 \end{split}
 \end{equation}\]</div>
 <p>Comparing the previous equation to equation (2), we conclude that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-563d8a2a-4a49-4ce3-9e60-20bc9047d990">
-<span class="eqno">(4)<a class="headerlink" href="#equation-563d8a2a-4a49-4ce3-9e60-20bc9047d990" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-57a00287-fab7-44cf-b2e0-8b4ec25c164b">
+<span class="eqno">(4)<a class="headerlink" href="#equation-57a00287-fab7-44cf-b2e0-8b4ec25c164b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \begin{split}
 w_{f,i} = w_{g,i}\frac{f(\mathbf{u}_i)}{g(\mathbf{u}_i)}\quad \mathbf{u}_{f,i} = \mathbf{u}_{g,i} 
 \end{split}
@@ -596,19 +610,19 @@ w_{f,i} = w_{g,i}\frac{f(\mathbf{u}_i)}{g(\mathbf{u}_i)}\quad \mathbf{u}_{f,i} =
 <section id="self-normalized-importance-sampling">
 <h2>Self-Normalized Importance Sampling<a class="headerlink" href="#self-normalized-importance-sampling" title="Permalink to this heading">#</a></h2>
 <p>Suppose we again have a primary sampler for the distribution <span class="math notranslate nohighlight">\(g(\mathbf{u})\)</span> generating <span class="math notranslate nohighlight">\(N\)</span> samples <span class="math notranslate nohighlight">\(\mathbf{u}_{g,i}\)</span>, weights <span class="math notranslate nohighlight">\(w_{g,i}\)</span> such that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f79e290f-79c3-48f9-8b92-57629a3763d8">
-<span class="eqno">(5)<a class="headerlink" href="#equation-f79e290f-79c3-48f9-8b92-57629a3763d8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-76dbda9c-c5ac-4674-b32b-07d4c4dbc06d">
+<span class="eqno">(5)<a class="headerlink" href="#equation-76dbda9c-c5ac-4674-b32b-07d4c4dbc06d" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \int \phi(\mathbf{u}) g(\mathbf{u}) d\mathbf{u} \approx \sum_{i=1}^N w_{g,i} \phi(\mathbf{u}_{g,i}),
 \end{equation}\]</div>
 <p>in which <span class="math notranslate nohighlight">\(\phi\)</span> is an arbitrary function of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>. But we only know the likelihoods upto a constant multiplier <span class="math notranslate nohighlight">\(c_0\)</span>. Specifically, we partially known the likelihood <span class="math notranslate nohighlight">\(g(\mathbf{u}_{g,i}) = c_0 g_0(\mathbf{u}_{g,i})\)</span> with <span class="math notranslate nohighlight">\(g_0\)</span> known but <span class="math notranslate nohighlight">\(c_0\)</span> not.</p>
 <p>Our target is to generate samples <span class="math notranslate nohighlight">\(\mathbf{u}_{f,i}\)</span> and weights <span class="math notranslate nohighlight">\(w_{f,i}\)</span> for a more complex distribution <span class="math notranslate nohighlight">\(f(\mathbf{u}) = c_1 f_0(\mathbf{u})\)</span> with <span class="math notranslate nohighlight">\(f_0\)</span> known but <span class="math notranslate nohighlight">\(c_1\)</span> not. Specifically, we aims to achieve</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c9aa3e59-3b8c-4dd1-aea4-923f1914066c">
-<span class="eqno">(6)<a class="headerlink" href="#equation-c9aa3e59-3b8c-4dd1-aea4-923f1914066c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c6c086e0-381c-4924-9e6d-d434711d8a81">
+<span class="eqno">(6)<a class="headerlink" href="#equation-c6c086e0-381c-4924-9e6d-d434711d8a81" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \int \phi(\mathbf{u}) f(\mathbf{u}) d\mathbf{u} \approx \sum_{i=1}^N w_{f,i} \phi(\mathbf{u}_{f,i}).
 \end{equation}\]</div>
 <p>Self-Normalized importance sampling helps us achieve this target utilizing the following observation</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ed2a737c-3803-4678-aa11-153b949e7753">
-<span class="eqno">(7)<a class="headerlink" href="#equation-ed2a737c-3803-4678-aa11-153b949e7753" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c2e4c101-ab92-4c4a-9e24-7208da6d0821">
+<span class="eqno">(7)<a class="headerlink" href="#equation-c2e4c101-ab92-4c4a-9e24-7208da6d0821" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \begin{split}
 \int\phi(\mathbf{u}) f(\mathbf{u}) d\mathbf{u} &amp;=\frac{\int \phi(\mathbf{u}) \frac{f(\mathbf{u})}{g(\mathbf{u})} g(\mathbf{u}) d\mathbf{u}}{\int \frac{f(\mathbf{u})}{g(\mathbf{u})} g(\mathbf{u}) d\mathbf{u}}\\
 &amp;=\frac{\int \phi(\mathbf{u}) \frac{f_0(\mathbf{u})}{g_0(\mathbf{u})} g(\mathbf{u}) d\mathbf{u}}{\int \frac{f_0(\mathbf{u})}{g_0(\mathbf{u})} g(\mathbf{u}) d\mathbf{u}}\\
@@ -616,8 +630,8 @@ w_{f,i} = w_{g,i}\frac{f(\mathbf{u}_i)}{g(\mathbf{u}_i)}\quad \mathbf{u}_{f,i} =
 \end{split}
 \end{equation}\]</div>
 <p>Comparing the previous equation to equation (6), we conclude that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-48369b37-5aac-44fd-8f6b-eed387c7dcb7">
-<span class="eqno">(8)<a class="headerlink" href="#equation-48369b37-5aac-44fd-8f6b-eed387c7dcb7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e1187077-5deb-4aab-b7a1-3b82eec698ed">
+<span class="eqno">(8)<a class="headerlink" href="#equation-e1187077-5deb-4aab-b7a1-3b82eec698ed" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \begin{split}
 w_{f,i} = \frac{ w_{g,i} \frac{f_0(\mathbf{u}_{g,i})}{g_0(\mathbf{u}_{g,i})} }{\sum_{i=1}^N w_{g,i} \frac{f_0(\mathbf{u}_{g,i})}{g_0(\mathbf{u}_{g,i})}   }  \quad \mathbf{u}_{f,i} = \mathbf{u}_{g,i} 
 \end{split}
@@ -634,11 +648,11 @@ w_{f,i} = \frac{ w_{g,i} \frac{f_0(\mathbf{u}_{g,i})}{g_0(\mathbf{u}_{g,i})} }{\
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="getStarted.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="GaugeTransformations.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Getting Started with MomentGauge.Models</p>
+            <p class="prev-next-title">Gauge Transformation</p>
         </div>
     </a>
 </div>
