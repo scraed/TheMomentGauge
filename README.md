@@ -6,7 +6,7 @@ The library offers a range of features, including sampling, optimization, and mo
 
 Please note that Moment Gauge is not fully optimized for speed. However, its flexibility make it a good choice for those looking to quickly implement and test numerical solvers using the maximal entropy moment method.
 
-Follow the installation guide to get started with Moment Gauge, and refer to the [documentation](https://scraed.github.io/TheMomentGauge/) for detailed information on using the library and its features.
+Follow the installation guide to get started with Moment Gauge, and refer to the [documentation](https://scraed.github.io/TheMomentGauge/) for detailed information on using the library and its features. Detailed explaination of the maximal entropy moment method are described in our [paper](https://arxiv.org/abs/2303.02898).
 
 ## Prerequisites
 
