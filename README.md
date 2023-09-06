@@ -1,6 +1,6 @@
 # Moment Gauge: A Python Library for Maximal Entropy Moment Method Based on JAX
 
-Moment Gauge is a Python library designed to facilitate the implementation of numerical solvers using the maximal entropy moment method. Built on the JAX framework, Moment Gauge aims to provide reusable code for researchers and developers working with rarefied gas dynamics and other applications of the maximal entropy moment method.
+Moment Gauge is a Python library designed to facilitate the implementation of numerical solvers using the maximal entropy moment method. Built on the JAX framework, Moment Gauge aims to provide reusable code for researchers and developers working with rarefied gas dynamics and other applications of the maximal entropy moment method. It is also the code implementation of the paper "Stabilizing the Maximal Entropy Moment Method for Rarefied Gas Dynamics at Single-Precision".
 
 The library offers a range of features, including sampling, optimization, and moment-computing methods for the exponential family distribution. This distribution family is known for having maximized entropy given a set of moments, and is the foundation of maximal moment method in the study of rarefied gas dynamics and other related fields.
 
